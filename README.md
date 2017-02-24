@@ -6,7 +6,7 @@ Write modern node cli scripts using ES6 classes.
 
 ## Install
 ```bash
-$ yarn global add modern-cli
+$ yarn add modern-cli
 ```
 
 ## License
