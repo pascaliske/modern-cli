@@ -1,0 +1,28 @@
+{
+  "name": "cli-framework",
+  "description": "",
+  "author": {
+    "name": "Pascal Iske",
+    "email": "info@pascal-iske.de",
+    "url": "https://pascal-iske.de"
+  },
+  "license": "MIT",
+  "version": "1.0.0",
+  "repository": {
+    "url": "https://github.com/pascaliske/cli-framework.git",
+    "type": "git"
+  },
+  "bugs": {
+    "url": "https://github.com/pascaliske/cli-framework/issues"
+  },
+  "main": "index.js",
+  "preferGlobal": true,
+  "dependencies": {
+    "babel-cli": "^6.23.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-latest": "^6.22.0",
+    "debug": "^2.6.1",
+    "inquirer": "^3.0.4",
+    "yargs": "^6.6.0"
+  }
+}
