@@ -15,7 +15,12 @@
   "bugs": {
     "url": "https://github.com/pascaliske/modern-cli/issues"
   },
-  "main": "index.js",
+  "main": "dist/index.js",
+  "scripts": {
+    "clean": "rm -rf dist/",
+    "build": "babel --out-dir dist/ src/",
+    "prepublish": "yarn run clean && yarn run build"
+  },
   "dependencies": {
     "babel-cli": "^6.23.0",
     "babel-plugin-transform-runtime": "^6.23.0",
