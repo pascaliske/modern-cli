@@ -16,6 +16,9 @@
     "url": "https://github.com/pascaliske/modern-cli/issues"
   },
   "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "clean": "rm -rf dist/",
     "build": "babel --out-dir dist/ src/",
