@@ -12,7 +12,7 @@ export default class Arguments {
      *
      * @param  [Object] args
      */
-    constructor(args={}) {
+    constructor(options={}) {
         const defaults = {
             h: {
                 alias: 'help',
@@ -20,12 +20,13 @@ export default class Arguments {
             }
         };
 
-        this.yargs = yargs;
-        this.args = this.yargs
+        this.yargs = yargs
             .usage('Usage: $0')
             .help('h')
-            .options(Object.assign({}, defaults, args))
-            .argv;
+            .options(Object.assign({}, defaults, options));
+
+        this.options = this.yargs.argv;
+        this.args = this.yargs.argv._;
     }
 
     /* --- protected --- */
@@ -39,7 +40,7 @@ export default class Arguments {
      * @return [Mixed]
      */
     get(key) {
-        return this.args[key];
+        return this.options[key];
     }
 
     /**
@@ -48,6 +49,6 @@ export default class Arguments {
      * @return [Object]
      */
     all() {
-        return this.args;
+        return this.options;
     }
 }
