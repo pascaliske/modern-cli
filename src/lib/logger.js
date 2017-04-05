@@ -14,16 +14,35 @@ export default class Logger {
      * @param  [String] id
      */
     constructor(id) {
-        // register chalk styles to logger class as static methods
-        for (const method in chalk.styles) {
-            Logger[method] = (...params) => chalk[method](...params);
-        }
+        const instance = debug(id);
+
+        // register chalk styles
+        this.registerStyles(instance);
 
         // return logger instance
-        return debug(id);
+        return instance;
     }
 
     /* --- protected --- */
+
+    /**
+     * Registers chalk styles to logger class as static methods and on instance
+     *
+     * @param {Logger} instance
+     * @return {void}
+     */
+    registerStyles(instance) {
+        for (const method in chalk.styles) {
+            // build handler for color
+            const handler = (...params) => chalk[method](...params);
+
+            // register as static method
+            Logger[method] = handler;
+
+            // register on current instance
+            instance[method] = handler;
+        }
+    }
 
     /* --- public --- */
 }
