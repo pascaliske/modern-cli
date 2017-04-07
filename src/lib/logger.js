@@ -37,14 +37,11 @@ export default class Logger {
      */
     registerStyles(instance) {
         for (const method in chalk.styles) {
-            // build handler for color
-            const handler = (...params) => chalk[method](...params);
-
             // register as static method
-            Logger[method] = handler;
+            Logger[method] = chalk[method].bind(chalk);
 
             // register on current instance
-            instance[method] = handler;
+            instance[method] = (...params) => instance(chalk[method](...params));
         }
     }
 
