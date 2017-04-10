@@ -21,6 +21,12 @@ export default class Logger {
         // initialize debug
         this.instance = debug(id);
 
+        // register war logger
+        this.registerRaw();
+
+        // register indentation helpers
+        this.registerIndentHelpers();
+
         // register chalk styles
         this.registerStyles();
 
@@ -32,6 +38,45 @@ export default class Logger {
     }
 
     /* --- protected --- */
+
+    /**
+     * Registers raw logging
+     *
+     * @return {void}
+     */
+    registerRaw() {
+        this.instance.raw = (...params) => {
+            if (this.indentation > 0) {
+                let indentation = '';
+                for (let i = 1; i < this.indentation; i++) {
+                    indentation += ' ';
+                }
+
+                params.unshift(indentation);
+            }
+
+            console.log.apply(chalk, params);
+        };
+    }
+
+    /**
+     * Registers indentation helpers for raw logging
+     *
+     * @return {void}
+     */
+    registerIndentHelpers() {
+        this.indentation = 0;
+        this.instance.indent = (value=3) => {
+            this.indentation = this.indentation + value;
+        };
+        this.instance.outdent = (value=3) => {
+            if ((this.indentation - value) >= 0) {
+                this.indentation = this.indentation - value;
+            } else {
+                this.indentation = 0;
+            }
+        };
+    }
 
     /**
      * Registers chalk styles to logger class as static methods and on instance
