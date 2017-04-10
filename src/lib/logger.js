@@ -15,46 +15,90 @@ export default class Logger {
      * @param  [String] id
      */
     constructor(id) {
-        const instance = debug(id);
+        // force debug to use process.env.DEBUG
+        debug.enable(process.env.DEBUG);
+
+        // initialize debug
+        this.instance = debug(id);
+
+        // register war logger
+        this.registerRaw();
+
+        // register indentation helpers
+        this.registerIndentHelpers();
 
         // register chalk styles
-        this.registerStyles(instance);
+        this.registerStyles();
 
         // register spinner
-        this.registerSpinner(instance);
+        this.registerSpinner();
 
         // return logger instance
-        return instance;
+        return this.instance;
     }
 
     /* --- protected --- */
 
     /**
-     * Registers chalk styles to logger class as static methods and on instance
+     * Registers raw logging
      *
-     * @param {Logger} instance
      * @return {void}
      */
-    registerStyles(instance) {
-        for (const method in chalk.styles) {
-            // build handler for color
-            const handler = (...params) => chalk[method](...params);
+    registerRaw() {
+        this.instance.raw = (...params) => {
+            if (this.indentation > 0) {
+                let indentation = '';
+                for (let i = 1; i < this.indentation; i++) {
+                    indentation += ' ';
+                }
 
+                params.unshift(indentation);
+            }
+
+            console.log.apply(chalk, params);
+        };
+    }
+
+    /**
+     * Registers indentation helpers for raw logging
+     *
+     * @return {void}
+     */
+    registerIndentHelpers() {
+        this.indentation = 0;
+        this.instance.indent = (value=3) => {
+            this.indentation = this.indentation + value;
+        };
+        this.instance.outdent = (value=3) => {
+            if ((this.indentation - value) >= 0) {
+                this.indentation = this.indentation - value;
+            } else {
+                this.indentation = 0;
+            }
+        };
+    }
+
+    /**
+     * Registers chalk styles to logger class as static methods and on instance
+     *
+     * @return {void}
+     */
+    registerStyles() {
+        for (const method in chalk.styles) {
             // register as static method
-            Logger[method] = handler;
+            Logger[method] = chalk[method].bind(chalk);
 
             // register on current instance
-            instance[method] = handler;
+            this.instance[method] = (...params) => this.instance(chalk[method](...params));
         }
     }
 
     /**
      * Registers a spinner as static method and on instance
      *
-     * @param {Logger} instance
      * @return {void}
      */
-    registerSpinner(instance) {
+    registerSpinner() {
         // build spinner
         const spinner = text => {
             const options = {
@@ -67,7 +111,7 @@ export default class Logger {
         Logger.spinner = spinner;
 
         // register on current instance
-        instance.spinner = spinner;
+        this.instance.spinner = spinner;
     }
 
     /* --- public --- */
