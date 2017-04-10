@@ -15,16 +15,20 @@ export default class Logger {
      * @param  [String] id
      */
     constructor(id) {
-        const instance = debug(id);
+        // force debug to use process.env.DEBUG
+        debug.enable(process.env.DEBUG);
+
+        // initialize debug
+        this.instance = debug(id);
 
         // register chalk styles
-        this.registerStyles(instance);
+        this.registerStyles();
 
         // register spinner
-        this.registerSpinner(instance);
+        this.registerSpinner();
 
         // return logger instance
-        return instance;
+        return this.instance;
     }
 
     /* --- protected --- */
@@ -32,26 +36,24 @@ export default class Logger {
     /**
      * Registers chalk styles to logger class as static methods and on instance
      *
-     * @param {Logger} instance
      * @return {void}
      */
-    registerStyles(instance) {
+    registerStyles() {
         for (const method in chalk.styles) {
             // register as static method
             Logger[method] = chalk[method].bind(chalk);
 
             // register on current instance
-            instance[method] = (...params) => instance(chalk[method](...params));
+            this.instance[method] = (...params) => this.instance(chalk[method](...params));
         }
     }
 
     /**
      * Registers a spinner as static method and on instance
      *
-     * @param {Logger} instance
      * @return {void}
      */
-    registerSpinner(instance) {
+    registerSpinner() {
         // build spinner
         const spinner = text => {
             const options = {
@@ -64,7 +66,7 @@ export default class Logger {
         Logger.spinner = spinner;
 
         // register on current instance
-        instance.spinner = spinner;
+        this.instance.spinner = spinner;
     }
 
     /* --- public --- */
