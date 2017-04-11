@@ -1,6 +1,6 @@
 import debug from 'debug';
 import chalk from 'chalk';
-import { Spinner } from 'cli-spinner';
+import Spinner from 'ora';
 
 export default class Logger {
     /* --- globals --- */
@@ -102,7 +102,9 @@ export default class Logger {
         // build spinner
         const spinner = text => {
             const options = {
-                text: text || '%s waiting...'
+                text: text || 'waiting...',
+                spinner: 'line',
+                interval: 100
             };
             return new Spinner(options);
         }
