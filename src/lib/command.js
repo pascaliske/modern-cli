@@ -8,10 +8,13 @@ export default class Command {
     /**
      * Initializes the cli command
      *
+     * @param {String} name
+     * @param {String} description
      * @return {Command}
      */
-    constructor(id) {
-        this.id = id;
+    constructor(name, description='') {
+        this.name = name;
+        this.description = description;
         this.subcommands = [];
     }
 
