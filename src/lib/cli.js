@@ -93,7 +93,7 @@ export default class Cli {
 
         // build usage section
         output.push('Usage:');
-        output.push('   <command> [options...]');
+        output.push(`   $ ${this.name} <command> [options...]`);
 
         // build commands section
         output.push('\nCommands:');
@@ -203,7 +203,7 @@ export default class Cli {
         } catch(e) {
             this.log.bold(`v${this.version}`);
             this.log.red(`Error: ${e.message}`);
-            this.log.red('You can display the help with the flag "-h" or the subcommand "help".')
+            this.log.red('You can display the help with the flag "-h" or the subcommand "help".');
             process.exit(1);
         }
     }
