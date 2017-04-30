@@ -193,7 +193,7 @@ export default class Cli {
 
         try {
             // display help screen
-            if (command === 'help' || options.get('help')) {
+            if (command === 'help' || options.get('help') || options.get('h')) {
                 await this.help(options);
                 process.exit(0);
             }
