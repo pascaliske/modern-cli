@@ -20,6 +20,7 @@ export default class Cli {
      * @param {String} version
      */
     constructor(name=path.basename(module.id), version='1.0.0') {
+        process.env.DEBUG = `${name}*`;
         this.name = name;
         this.version = version;
         this.env = new Environment();
