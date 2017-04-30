@@ -10,22 +10,10 @@ export default class Arguments {
     /**
      * Initializes the cli arguments
      *
-     * @param  [Object] args
+     * @return {Arguments}
      */
-    constructor(options={}) {
-        const defaults = {
-            h: {
-                alias: 'help',
-                description: 'Displays help message.'
-            }
-        };
-
-        this.yargs = yargs
-            .usage('Usage: $0')
-            .help('h')
-            .options(Object.assign({}, defaults, options));
-
-        this.options = this.yargs.argv;
+    constructor() {
+        this.yargs = yargs;
         this.args = this.yargs.argv._;
     }
 
@@ -34,13 +22,13 @@ export default class Arguments {
     /* --- public --- */
 
     /**
-     * Returns a single argument value
+     * Returns a single argument based on the index
      *
      * @param  [String] key
      * @return [Mixed]
      */
     get(key) {
-        return this.options[key];
+        return this.args[key];
     }
 
     /**
@@ -49,6 +37,6 @@ export default class Arguments {
      * @return [Object]
      */
     all() {
-        return this.options;
+        return this.args;
     }
 }

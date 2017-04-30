@@ -33,6 +33,9 @@ export default class Logger {
         // register spinner
         this.registerSpinner();
 
+        // register counter
+        this.registerCounter();
+
         // return logger instance
         return this.instance;
     }
@@ -114,6 +117,27 @@ export default class Logger {
 
         // register on current instance
         this.instance.spinner = spinner;
+    }
+
+    /**
+     * Registers a counter for logging multiple steps
+     *
+     * @return {void}
+     */
+    registerCounter() {
+        this.count = false;
+        this.counterFrom = 1;
+        this.counterTo = 1;
+        this.instance.count = (counterTo=1) => {
+            this.count = true;
+            this.counterFrom = 1;
+            this.counterTo = counterTo;
+        };
+        this.instance.countEnd = () => {
+            this.count = false;
+            this.counterFrom = 1;
+            this.counterTo = 1;
+        };
     }
 
     /* --- public --- */
