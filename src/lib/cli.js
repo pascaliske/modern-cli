@@ -28,9 +28,41 @@ export default class Cli {
         this.args = new Arguments();
         this.commands = {};
         this.options = {};
+
+        // add help command and option
+        this.registerHelp();
     }
 
     /* --- protected --- */
+
+    /**
+     * Pre-registers the help command and option to the cli
+     *
+     * @return {void}
+     */
+    registerHelp() {
+        const name = 'help';
+        const description = '';
+        const execute = this.help.bind(this);
+
+        // add help command
+        this.addCommands([
+            {
+                name: name,
+                description: description,
+                execute: execute
+            }
+        ]);
+
+        // add help option
+        this.addOptions([
+            {
+                name: 'h',
+                alias: name,
+                description: description
+            }
+        ]);
+    }
 
     /**
      * Displays the help message
