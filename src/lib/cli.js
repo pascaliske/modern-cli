@@ -123,9 +123,13 @@ export default class Cli {
      * @return {Cli}
      */
     addCommands(commands=[]) {
-        for (const command of commands) {
-                this.commands[command.name] = command;
-            if (command instanceof Command) {
+        for (const item of commands) {
+            const { name, description, execute } = item;
+
+            if (item instanceof Command) {
+                this.commands[name] = item;
+            } else {
+                this.commands[name] = new Command(name, description, execute);
             }
         }
 

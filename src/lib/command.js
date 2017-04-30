@@ -10,12 +10,16 @@ export default class Command {
      *
      * @param {String} name
      * @param {String} description
+     * @param {Function} execute
      * @return {Command}
      */
-    constructor(name, description='') {
+    constructor(name, description='', execute=null) {
         this.name = name;
         this.description = description;
-        this.subcommands = [];
+
+        if (execute !== null) {
+            this.execute = execute;
+        }
     }
 
     /* --- protected --- */
