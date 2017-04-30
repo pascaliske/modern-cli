@@ -140,9 +140,18 @@ export default class Cli {
         if (typeof command.execute === 'function') {
             // display command name and version
             this.log.bold(`${command.name} v${this.version}`);
+            this.log('🔥  let\'s go!');
 
-            // execute command
-            await this.commands[name].execute.call(this, options);
+            try {
+                // execute command
+                await this.commands[name].execute.call(this, options);
+                // done
+                this.log.bold('🎉  we\'re done, my friend! put down your ☕️  and carry on coding!');
+            } catch(e) {
+                this.log.red(`Error: ${e.message}`);
+                this.log.red('😔  something went wrong!');
+                process.exit(1);
+            }
         }
     }
 
