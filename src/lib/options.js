@@ -13,12 +13,7 @@ export default class Options {
      * @param  [Object] args
      */
     constructor(name, options={}) {
-        const defaults = {
-            h: {
-                alias: 'help',
-                description: 'Displays help message.'
-            }
-        };
+        const defaults = {};
 
         this.name = name;
         this.yargs = yargs.options(Object.assign({}, defaults, options));

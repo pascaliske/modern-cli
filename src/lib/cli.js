@@ -42,7 +42,7 @@ export default class Cli {
      */
     registerHelp() {
         const name = 'help';
-        const description = '';
+        const description = 'Displays a help message and all available commands and options.';
         const execute = this.help.bind(this);
 
         // add help command
@@ -93,7 +93,7 @@ export default class Cli {
 
         // build usage section
         output.push('Usage:');
-        output.push('   <command> [options...]');
+        output.push(`   $ ${this.name} <command> [options...]`);
 
         // build commands section
         output.push('\nCommands:');
@@ -140,9 +140,18 @@ export default class Cli {
         if (typeof command.execute === 'function') {
             // display command name and version
             this.log.bold(`${command.name} v${this.version}`);
+            this.log('🔥  let\'s go!');
 
-            // execute command
-            await this.commands[name].execute.call(this, options);
+            try {
+                // execute command
+                await this.commands[name].execute.call(this, options);
+                // done
+                this.log.bold('🎉  we\'re done, my friend! put down your ☕️  and carry on coding!');
+            } catch(e) {
+                this.log.red(`Error: ${e.message}`);
+                this.log.red('😔  something went wrong!');
+                process.exit(1);
+            }
         }
     }
 
@@ -193,7 +202,7 @@ export default class Cli {
 
         try {
             // display help screen
-            if (command === 'help' || options.get('help')) {
+            if (command === 'help' || options.get('help') || options.get('h')) {
                 await this.help(options);
                 process.exit(0);
             }
@@ -203,7 +212,7 @@ export default class Cli {
         } catch(e) {
             this.log.bold(`v${this.version}`);
             this.log.red(`Error: ${e.message}`);
-            this.log.red('You can display the help with the flag "-h" or the subcommand "help".')
+            this.log.red('You can display the help with the flag "-h" or the subcommand "help".');
             process.exit(1);
         }
     }
