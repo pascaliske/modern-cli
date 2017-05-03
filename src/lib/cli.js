@@ -133,7 +133,8 @@ export default class Cli {
         // get command from name
         const command = this.commands[name];
 
-        // inject options into command
+        // inject logger and options into command
+        command.log = this.log;
         command.options = options;
 
         // execute command
