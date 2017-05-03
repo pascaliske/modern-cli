@@ -1,3 +1,5 @@
+import Prompt from './prompt';
+
 export default class Command {
     /* --- globals --- */
 
@@ -23,6 +25,28 @@ export default class Command {
     }
 
     /* --- protected --- */
+
+    /**
+     * Fetches necessary data from user
+     *
+     * @param {Array}
+     * @return {Promise}
+     */
+    async prompt(questions=[]) {
+        try {
+            // create new prompt instance
+            const prompt = new Prompt();
+
+            // set questions to prompt
+            prompt.ask(questions);
+
+            // start prompting for answers
+            return await prompt.start();
+        } catch(err) {
+            console.error(err);
+            process.exit(1);
+        }
+    }
 
     /* --- public --- */
 }
