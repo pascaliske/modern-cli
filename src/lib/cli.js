@@ -133,7 +133,8 @@ export default class Cli {
         // get command from name
         const command = this.commands[name];
 
-        // inject options into command
+        // inject logger and options into command
+        command.log = this.log;
         command.options = options;
 
         // execute command
@@ -144,7 +145,7 @@ export default class Cli {
 
             try {
                 // execute command
-                await this.commands[name].execute.call(this, options);
+                await command.execute.call(command, options);
                 // done
                 this.log.bold('🎉  we\'re done, my friend! put down your ☕️  and carry on coding!');
             } catch(e) {
