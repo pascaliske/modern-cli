@@ -1,6 +1,7 @@
 import Logger from './logger';
 import Prompt from './prompt';
 import { shell } from 'execa';
+import fetch from 'node-fetch';
 import { readFile, writeFile } from 'mz/fs';
 import { safeLoad, safeDump } from 'js-yaml';
 
@@ -48,6 +49,16 @@ export default class Command {
      */
     async writeYaml(file, contents) {
         await writeFile(file, safeDump(contents));
+    }
+
+    /**
+     * Fetches a given url
+     *
+     * @param {Array} params
+     * @return {Promise}
+     */
+    async fetch(...params) {
+        return fetch(...params);
     }
 
     /**
