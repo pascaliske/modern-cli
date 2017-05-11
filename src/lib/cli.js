@@ -1,5 +1,5 @@
 import path from 'path';
-import { padEnd } from 'lodash';
+import { padEnd, upperFirst } from 'lodash';
 import Environment from './environment';
 import Logger from './logger';
 import Arguments from './arguments';
@@ -121,38 +121,47 @@ export default class Cli {
     /**
      * Executes a cli command
      *
-     * @param {String} name
-     * @param {Options} options
-     * @return {void}
+     * @param {String} command
+     * @param {String} subcommand
+     * @param {Object} options
+     * @return {Promise}
      */
-    async executeCommand(name=false, options) {
-        if (!name || !this.commands[name]) {
-            throw new Error(`No command "${name}" specified!`);
+    async executeCommand(command=false, subcommand=false, options) {
+        if (!command || !this.commands[command]) {
+            throw new Error(`No command "${command}" specified!`);
         }
 
         // get command from name
-        const command = this.commands[name];
+        command = this.commands[command];
 
         // inject logger and options into command
         command.log = this.log;
+        command.env = this.env;
         command.options = options;
 
-        // execute command
-        if (typeof command.execute === 'function') {
-            // display command name and version
-            this.log.bold(`${command.name} v${this.version}`);
-            this.log('🔥  let\'s go!');
+        // display command name and version
+        this.log.bold(`${command.name} v${this.version}`);
+        this.log('🔥  let\'s go!');
 
-            try {
-                // execute command
-                await command.execute.call(command, options);
-                // done
-                this.log.bold('🎉  we\'re done, my friend! put down your ☕️  and carry on coding!');
-            } catch(e) {
-                this.log.red(`Error: ${e.message}`);
-                this.log.red('😔  something went wrong!');
-                process.exit(1);
+        try {
+            let fn = 'execute';
+            if (subcommand !== false) {
+                fn = `execute${upperFirst(subcommand)}`
             }
+
+            // execute command
+            if (command[fn] && typeof command[fn] === 'function') {
+                await command[fn].call(command, options);
+            } else {
+                throw new Error(`The command "${command.name}" doesn't have an executor called "${fn}".`);
+            }
+
+            // done
+            this.log.bold('🎉  we\'re done, my friend! put down your ☕️  and carry on coding!');
+        } catch(e) {
+            this.log.red('Something went wrong!');
+            this.log.red(`😔  ${e.message}`);
+            process.exit(1);
         }
     }
 
@@ -198,7 +207,7 @@ export default class Cli {
      * @return {Promise}
      */
     async run() {
-        const command = this.args.get(0) || 'help';
+        const [ command, subcommand = false ] = (this.args.get(0) || 'help').split(':');
         const options = new Options(this.options);
 
         try {
@@ -209,7 +218,7 @@ export default class Cli {
             }
 
             // execute command
-            await this.executeCommand(command, options);
+            await this.executeCommand(command, subcommand, options);
         } catch(e) {
             this.log.bold(`v${this.version}`);
             this.log.red(`Error: ${e.message}`);
