@@ -1,6 +1,8 @@
 import Logger from './logger';
 import Prompt from './prompt';
 import { shell } from 'execa';
+import { readFile, writeFile } from 'mz/fs';
+import { safeLoad, safeDump } from 'js-yaml';
 
 export default class Command {
     /* --- globals --- */
@@ -27,6 +29,26 @@ export default class Command {
     }
 
     /* --- protected --- */
+
+    /**
+     * Reads a yaml file from disk and parses it into js
+     *
+     * @param {String} file
+     * @return {Object}
+     */
+    async readYaml(file) {
+        return safeLoad(await readFile(file));
+    }
+
+    /**
+     * Parses a js object and saves it to an yaml file on disk
+     *
+     * @param {Object} file
+     * @return {Promise}
+     */
+    async writeYaml(file, contents) {
+        await writeFile(file, safeDump(contents));
+    }
 
     /**
      * Executes a given local command
