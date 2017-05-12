@@ -1,5 +1,6 @@
 import path from 'path';
 import { padEnd, upperFirst } from 'lodash';
+import { isCI } from 'ci-info';
 import notifier from 'node-notifier';
 import Environment from './environment';
 import Logger from './logger';
@@ -210,6 +211,10 @@ export default class Cli {
      * @return {Promise}
      */
     async notify(message, options={}) {
+        if (!process.stdout.isTTY || isCI) {
+            return;
+        }
+
         // temporarily disable debugging
         const debug = process.env.DEBUG;
         process.env.DEBUG = undefined;
