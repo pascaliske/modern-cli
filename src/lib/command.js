@@ -68,14 +68,13 @@ export default class Command {
      * @return {Promise}
      */
     async local(...params) {
-        this.log('Executing local shell command')
         this.log.raw(Logger.grey('\n$', params.join(' ')));
 
         const result = await shell(params, {
             stdio: 'inherit'
         });
 
-        this.log.raw('\n');
+        this.log.raw('');
 
         return result;
     }
