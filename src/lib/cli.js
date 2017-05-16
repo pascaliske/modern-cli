@@ -1,5 +1,7 @@
 import path from 'path';
 import { padEnd, upperFirst } from 'lodash';
+import { isCI } from 'ci-info';
+import notifier from 'node-notifier';
 import Environment from './environment';
 import Logger from './logger';
 import Arguments from './arguments';
@@ -202,6 +204,40 @@ export default class Cli {
     }
 
     /**
+     * Notifies the user
+     *
+     * @param {String} message
+     * @param {Object} options
+     * @return {Promise}
+     */
+    async notify(message, options={}) {
+        if (!process.stdout.isTTY || isCI) {
+            return;
+        }
+
+        // temporarily disable debugging
+        const debug = process.env.DEBUG;
+        process.env.DEBUG = undefined;
+
+        // promisify node-notifier
+        const promise = new Promise((resolve, reject) => {
+            notifier.notify({
+                title: `${this.name}@${this.version}`,
+                message: message || 'Done.',
+                sound: Boolean(options.sound) || false
+            }, (error, result) => {
+                if (error) {
+                    reject(new Error(error));
+                }
+                resolve(result);
+            });
+        });
+
+        // re-enable debugging and return
+        return promise.then(() => process.env.DEBUG = debug);
+    }
+
+    /**
      * Executes the cli command
      *
      * @return {Promise}
@@ -219,10 +255,13 @@ export default class Cli {
 
             // execute command
             await this.executeCommand(command, subcommand, options);
+
+            // notify user of successful execution
+            await this.notify(`🎉 Command "${this.args.get(0)}" executed successfully!`);
         } catch(e) {
-            this.log.bold(`v${this.version}`);
             this.log.red(`Error: ${e.message}`);
             this.log.red('You can display the help with the flag "-h" or the subcommand "help".');
+            await this.notify('😔 An error occured!');
             process.exit(1);
         }
     }
