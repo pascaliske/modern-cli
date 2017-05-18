@@ -107,7 +107,7 @@ export default class Logger {
             const options = {
                 text: text || 'waiting...',
                 spinner: 'line',
-                interval: 100
+                interval: 5
             };
             return new Spinner(options);
         }

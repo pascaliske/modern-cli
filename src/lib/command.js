@@ -1,6 +1,9 @@
 import Logger from './logger';
 import Prompt from './prompt';
 import { shell } from 'execa';
+import fetch from 'node-fetch';
+import { readFile, writeFile } from 'mz/fs';
+import { safeLoad, safeDump } from 'js-yaml';
 
 export default class Command {
     /* --- globals --- */
@@ -29,20 +32,49 @@ export default class Command {
     /* --- protected --- */
 
     /**
+     * Reads a yaml file from disk and parses it into js
+     *
+     * @param {String} file
+     * @return {Object}
+     */
+    async readYaml(file) {
+        return safeLoad(await readFile(file));
+    }
+
+    /**
+     * Parses a js object and saves it to an yaml file on disk
+     *
+     * @param {Object} file
+     * @return {Promise}
+     */
+    async writeYaml(file, contents) {
+        await writeFile(file, safeDump(contents));
+    }
+
+    /**
+     * Fetches a given url
+     *
+     * @param {Array} params
+     * @return {Promise}
+     */
+    async fetch(...params) {
+        return fetch(...params);
+    }
+
+    /**
      * Executes a given local command
      *
      * @param {Array} params
      * @return {Promise}
      */
     async local(...params) {
-        this.log('Executing local shell command')
         this.log.raw(Logger.grey('\n$', params.join(' ')));
 
         const result = await shell(params, {
             stdio: 'inherit'
         });
 
-        this.log.raw('\n');
+        this.log.raw('');
 
         return result;
     }
