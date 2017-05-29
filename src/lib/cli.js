@@ -45,7 +45,7 @@ export default class Cli {
     registerHelp() {
         const name = 'help';
         const description = 'Displays a help message and all available commands and options.';
-        const execute = this.help.bind(this);
+        const execute = ::this.help;
 
         // add help command
         this.addCommands([
@@ -258,9 +258,6 @@ export default class Cli {
 
             // notify user of successful execution
             await this.notify(`🎉 Command "${this.args.get(0)}" executed successfully!`);
-
-            // exit process
-            process.exit(0);
         } catch(e) {
             this.log.red(`Error: ${e.message}`);
             this.log.red('You can display the help with the flag "-h" or the subcommand "help".');

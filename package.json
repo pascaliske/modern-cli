@@ -7,7 +7,7 @@
     "url": "https://pascal-iske.de"
   },
   "license": "MIT",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "repository": {
     "url": "https://github.com/pascaliske/modern-cli.git",
     "type": "git"
@@ -41,6 +41,7 @@
   },
   "devDependencies": {
     "babel-cli": "^6.24.0",
+    "babel-plugin-transform-function-bind": "^6.22.0",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-latest": "^6.24.0",
     "nodemon": "^1.11.0"

@@ -89,7 +89,7 @@ export default class Logger {
     registerStyles() {
         for (const method in chalk.styles) {
             // register as static method
-            Logger[method] = chalk[method].bind(chalk);
+            Logger[method] = chalk::chalk[method];
 
             // register on current instance
             this.instance[method] = (...params) => this.instance(chalk[method](...params));
