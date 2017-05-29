@@ -45,7 +45,7 @@ export default class Cli {
     registerHelp() {
         const name = 'help';
         const description = 'Displays a help message and all available commands and options.';
-        const execute = this.help.bind(this);
+        const execute = ::this.help;
 
         // add help command
         this.addCommands([
