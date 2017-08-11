@@ -28,6 +28,7 @@ export default class Cli {
         this.env = new Environment();
         this.log = new Logger(name);
         this.args = new Arguments();
+        this.defaultCommand = 'help';
         this.commands = {};
         this.options = {};
 
@@ -170,6 +171,35 @@ export default class Cli {
     /* --- public --- */
 
     /**
+     * Defines the cli's default command
+     *
+     * @param {String|Object|Command}
+     * @return {Cli}
+     */
+    addDefaultCommand(command=false) {
+        if (!command) {
+            return this;
+        }
+
+        // choose command by name
+        if (typeof command === 'string') {
+            this.defaultCommand = command;
+
+            return this;
+        }
+
+        // inject command and set newly injected
+        if (command instanceof Command) {
+            this.commands[command.name] = command;
+        } else if (typeof command === 'function') {
+            const { name, description, execute } = command;
+            this.commands[name] = new Command(name, description, execute);
+        }
+
+        return this;
+    }
+
+    /**
      * Defines cli commands
      *
      * @param {Array} commands
@@ -243,7 +273,7 @@ export default class Cli {
      * @return {Promise}
      */
     async run() {
-        const [ command, subcommand = false ] = (this.args.get(0) || 'help').split(':');
+        const [ command, subcommand = false ] = (this.args.get(0) || this.defaultCommand).split(':');
         const options = new Options(this.options);
 
         try {
