@@ -22,15 +22,18 @@ export default class Cli {
      * @param {String} version
      */
     constructor(name=path.basename(module.id), version='1.0.0') {
+        // enable all loggers including package name
         process.env.DEBUG = `${name}*`;
+
         this.name = name;
         this.version = version;
         this.env = new Environment();
         this.log = new Logger(name);
         this.args = new Arguments();
-        this.defaultCommand = 'help';
         this.commands = {};
         this.options = {};
+        this.defaultCommand = 'help';
+        this.started = Date.now();
 
         // add help command and option
         this.registerHelp();
@@ -140,6 +143,7 @@ export default class Cli {
         // inject logger and options into command
         command.log = this.log;
         command.env = this.env;
+        command.started = this.started;
         command.options = options;
 
         // display command name and version
