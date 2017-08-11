@@ -7,7 +7,7 @@
     "url": "https://pascal-iske.de"
   },
   "license": "MIT",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "repository": {
     "url": "https://github.com/pascaliske/modern-cli.git",
     "type": "git"
@@ -34,7 +34,7 @@
     "lodash": "^4.17.4",
     "mz": "^2.6.0",
     "node-fetch": "^1.6.3",
-    "node-notifier": "^5.1.2",
+    "node-notifier": "https://github.com/mikaelbr/node-notifier#master",
     "ora": "^1.2.0",
     "yargs": "^8.0.1"
   },
