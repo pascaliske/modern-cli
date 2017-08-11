@@ -22,7 +22,9 @@ export default class Cli {
      * @param {String} version
      */
     constructor(name=path.basename(module.id), version='1.0.0') {
+        // enable all loggers including package name
         process.env.DEBUG = `${name}*`;
+
         this.name = name;
         this.version = version;
         this.env = new Environment();
@@ -30,6 +32,8 @@ export default class Cli {
         this.args = new Arguments();
         this.commands = {};
         this.options = {};
+        this.defaultCommand = 'help';
+        this.started = Date.now();
 
         // add help command and option
         this.registerHelp();
@@ -139,6 +143,7 @@ export default class Cli {
         // inject logger and options into command
         command.log = this.log;
         command.env = this.env;
+        command.started = this.started;
         command.options = options;
 
         // display command name and version
@@ -168,6 +173,35 @@ export default class Cli {
     }
 
     /* --- public --- */
+
+    /**
+     * Defines the cli's default command
+     *
+     * @param {String|Object|Command}
+     * @return {Cli}
+     */
+    addDefaultCommand(command=false) {
+        if (!command) {
+            return this;
+        }
+
+        // choose command by name
+        if (typeof command === 'string') {
+            this.defaultCommand = command;
+
+            return this;
+        }
+
+        // inject command and set newly injected
+        if (command instanceof Command) {
+            this.commands[command.name] = command;
+        } else if (typeof command === 'function') {
+            const { name, description, execute } = command;
+            this.commands[name] = new Command(name, description, execute);
+        }
+
+        return this;
+    }
 
     /**
      * Defines cli commands
@@ -243,7 +277,7 @@ export default class Cli {
      * @return {Promise}
      */
     async run() {
-        const [ command, subcommand = false ] = (this.args.get(0) || 'help').split(':');
+        const [ command, subcommand = false ] = (this.args.get(0) || this.defaultCommand).split(':');
         const options = new Options(this.options);
 
         try {
