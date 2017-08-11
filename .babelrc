@@ -1,4 +1,4 @@
 {
-  "presets": ["latest"],
-  "plugins": ["transform-runtime", "transform-function-bind"]
+  "presets": ["env"],
+  "plugins": ["transform-runtime", "transform-function-bind", "transform-decorators-legacy"],
 }
