@@ -22,7 +22,7 @@
   "scripts": {
     "prepublish": "yarn run build",
     "build": "rm -rf dist/ && babel --out-dir dist/ src/",
-    "watch": "nodemon --exec \"yarn run build\" --watch ./src/lib/"
+    "watch": "nodemon --exec \"yarn run build\" --watch ./src/"
   },
   "dependencies": {
     "ansi-styles": "^3.2.0",
