@@ -12,7 +12,7 @@ export default class Prompt {
      */
     constructor() {
         this.questions = [];
-        this.inquirer = inquirer;
+        this.prompt = inquirer.createPromptModule();
     }
 
     /* --- protected --- */
@@ -35,6 +35,6 @@ export default class Prompt {
      * @returns {Promise}
      */
     start() {
-        return this.inquirer.prompt(this.questions);
+        return this.prompt(this.questions);
     }
 }
