@@ -8,9 +8,9 @@ export default class Environment {
     /* --- constructor --- */
 
     /**
-     * Initializes a environment inspector
+     * Initializes a environment inspector.
      *
-     * @return {Environment}
+     * @returns {Environment}
      */
     constructor() {
         this.yargs = yargs.options({
@@ -28,28 +28,28 @@ export default class Environment {
     /* --- public --- */
 
     /**
-     * Checks if the given string is the curent environment
+     * Checks if the given string is the curent environment.
      *
-     * @param  {String} name
-     * @return {Boolean}
+     * @param {string} name - The name to be checked.
+     * @returns {bool}
      */
     is(name) {
         return this.name === name;
     }
 
     /**
-     * Alias for is('production')
+     * Alias for is('production').
      *
-     * @return {Boolean}
+     * @returns {bool}
      */
     isProd() {
         return this.is('production');
     }
 
     /**
-     * Alias for is('development')
+     * Alias for is('development').
      *
-     * @return {Boolean}
+     * @returns {bool}
      */
     isDev() {
         return this.is('development');

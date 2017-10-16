@@ -8,9 +8,10 @@ export default class Options {
     /* --- constructor --- */
 
     /**
-     * Initializes the cli options
+     * Initializes the cli options.
      *
-     * @param  [Object] args
+     * @param {string} name -
+     * @param {Object} options -
      */
     constructor(name, options={}) {
         const defaults = {};
@@ -25,19 +26,19 @@ export default class Options {
     /* --- public --- */
 
     /**
-     * Returns a single option value
+     * Returns a single option value.
      *
-     * @param  [String] key
-     * @return [Mixed]
+     * @param {string} key -
+     * @returns {string}
      */
     get(key) {
         return this.options[key];
     }
 
     /**
-     * Returns all option values
+     * Returns all option values.
      *
-     * @return [Object]
+     * @returns {Object}
      */
     all() {
         return this.options;

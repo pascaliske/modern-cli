@@ -8,9 +8,9 @@ export default class Arguments {
     /* --- constructor --- */
 
     /**
-     * Initializes the cli arguments
+     * Initializes the cli arguments.
      *
-     * @return {Arguments}
+     * @returns {Arguments}
      */
     constructor() {
         this.yargs = yargs;
@@ -22,19 +22,19 @@ export default class Arguments {
     /* --- public --- */
 
     /**
-     * Returns a single argument based on the index
+     * Returns a single argument based on the index.
      *
-     * @param  [String] key
-     * @return [Mixed]
+     * @param {string} key - They key to be returned.
+     * @returns {string}
      */
     get(key) {
         return this.args[key];
     }
 
     /**
-     * Returns all argument values
+     * Returns all argument values.
      *
-     * @return [Object]
+     * @returns {Object}
      */
     all() {
         return this.args;

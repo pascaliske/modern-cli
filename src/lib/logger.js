@@ -12,7 +12,7 @@ export default class Logger {
     /**
      * Initializes the logger.
      *
-     * @param  {string} id -  The name of the logger instance.
+     * @param  {string} id - The name of the logger instance.
      * @returns {Object}
      */
     constructor(id) {
