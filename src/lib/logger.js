@@ -10,9 +10,10 @@ export default class Logger {
     /* --- constructor --- */
 
     /**
-     * Initializes the logger
+     * Initializes the logger.
      *
-     * @param  [String] id
+     * @param  {string} id -  The name of the logger instance.
+     * @returns {Object}
      */
     constructor(id) {
         // force debug to use process.env.DEBUG
@@ -43,9 +44,9 @@ export default class Logger {
     /* --- protected --- */
 
     /**
-     * Registers raw logging
+     * Registers raw logging.
      *
-     * @return {void}
+     * @returns {void}
      */
     registerRaw() {
         this.instance.raw = (...params) => {
@@ -58,14 +59,15 @@ export default class Logger {
                 params.unshift(indentation);
             }
 
+            // eslint-disable-next-line no-console
             console.log.apply(chalk, params);
         };
     }
 
     /**
-     * Registers indentation helpers for raw logging
+     * Registers indentation helpers for raw logging.
      *
-     * @return {void}
+     * @returns {void}
      */
     registerIndentHelpers() {
         this.indentation = 0;
@@ -82,9 +84,9 @@ export default class Logger {
     }
 
     /**
-     * Registers chalk styles to logger class as static methods and on instance
+     * Registers chalk styles to logger class as static methods and on instance.
      *
-     * @return {void}
+     * @returns {void}
      */
     registerStyles() {
         for (const method in chalk.styles) {
@@ -97,9 +99,9 @@ export default class Logger {
     }
 
     /**
-     * Registers a spinner as static method and on instance
+     * Registers a spinner as static method and on instance.
      *
-     * @return {void}
+     * @returns {void}
      */
     registerSpinner() {
         // build spinner
@@ -120,9 +122,9 @@ export default class Logger {
     }
 
     /**
-     * Registers a counter for logging multiple steps
+     * Registers a counter for logging multiple steps.
      *
-     * @return {void}
+     * @returns {void}
      */
     registerCounter() {
         this.count = false;

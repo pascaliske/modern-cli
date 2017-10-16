@@ -1,9 +1,9 @@
 import Logger from './logger';
 import Prompt from './prompt';
 import { shell } from 'execa';
-import fetch from 'node-fetch';
 import { readFile, writeFile } from 'mz/fs';
 import { safeLoad, safeDump } from 'js-yaml';
+import fetch from 'node-fetch';
 
 export default class Command {
     /* --- globals --- */
@@ -13,12 +13,12 @@ export default class Command {
     /* --- constructor --- */
 
     /**
-     * Initializes the cli command
+     * Initializes the cli command.
      *
-     * @param {String} name
-     * @param {String} description
-     * @param {Function} execute
-     * @return {Command}
+     * @param {string} name -
+     * @param {string} description -
+     * @param {Function} execute -
+     * @returns {Command}
      */
     constructor(name, description='', execute=null) {
         this.name = name;
@@ -32,40 +32,41 @@ export default class Command {
     /* --- protected --- */
 
     /**
-     * Reads a yaml file from disk and parses it into js
+     * Reads a yaml file from disk and parses it into js.
      *
-     * @param {String} file
-     * @return {Object}
+     * @param {string} file - The ymal file to read and parse.
+     * @returns {Object} - The parsed yaml file as object.
      */
     async readYaml(file) {
         return safeLoad(await readFile(file));
     }
 
     /**
-     * Parses a js object and saves it to an yaml file on disk
+     * Parses a js object and saves it to an yaml file on disk.
      *
-     * @param {Object} file
-     * @return {Promise}
+     * @param {Object} file - The yaml file to write into.
+     * @param {Object} contents - The contents to write in the yaml file.
+     * @returns {Promise}
      */
     async writeYaml(file, contents) {
         await writeFile(file, safeDump(contents));
     }
 
     /**
-     * Fetches a given url
+     * Fetches a given url.
      *
-     * @param {Array} params
-     * @return {Promise}
+     * @param {Array} params -
+     * @returns {Promise}
      */
     async fetch(...params) {
         return fetch(...params);
     }
 
     /**
-     * Executes a given local command
+     * Executes a given local command.
      *
-     * @param {Array} params
-     * @return {Promise}
+     * @param {Array} params -
+     * @returns {Promise}
      */
     async local(...params) {
         this.log.raw(Logger.grey('\n$', params.join(' ')));
@@ -80,10 +81,10 @@ export default class Command {
     }
 
     /**
-     * Fetches necessary data from user
+     * Fetches necessary data from user.
      *
-     * @param {Array}
-     * @return {Promise}
+     * @param {Array} questions - The questions to ask.
+     * @returns {Promise}
      */
     async prompt(questions=[]) {
         try {
@@ -96,7 +97,8 @@ export default class Command {
             // start prompting for answers
             return await prompt.start();
         } catch(err) {
-            console.error(err.message);
+            // eslint-disable-next-line no-console
+            console.error(err);
             process.exit(1);
         }
     }

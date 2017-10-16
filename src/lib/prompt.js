@@ -8,7 +8,7 @@ export default class Prompt {
     /* --- constructor --- */
 
     /**
-     * Initializes the prompt
+     * Initializes the prompt.
      */
     constructor() {
         this.questions = [];
@@ -19,10 +19,21 @@ export default class Prompt {
 
     /* --- public --- */
 
+    /**
+     * Adds the given questions to the prompt instance.
+     *
+     * @param {Array} questions -
+     * @returns {void}
+     */
     ask(questions=[]) {
         this.questions = this.questions.concat(questions);
     }
 
+    /**
+     * Starts the prompt session.
+     *
+     * @returns {Promise}
+     */
     start() {
         return this.inquirer.prompt(this.questions);
     }

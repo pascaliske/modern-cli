@@ -16,10 +16,11 @@ export default class Cli {
     /* --- constructor --- */
 
     /**
-     * Initializes the cli
+     * Initializes the cli.
      *
-     * @param {String} name
-     * @param {String} version
+     * @param {string} name -
+     * @param {string} version -
+     * @returns {Cli}
      */
     constructor(name=path.basename(module.id), version='1.0.0') {
         // enable all loggers including package name
@@ -42,9 +43,9 @@ export default class Cli {
     /* --- protected --- */
 
     /**
-     * Pre-registers the help command and option to the cli
+     * Registers the default commands and options to the cli.
      *
-     * @return {void}
+     * @returns {void}
      */
     registerHelp() {
         const name = 'help';
@@ -71,10 +72,10 @@ export default class Cli {
     }
 
     /**
-     * Displays the help message
+     * Displays the help message.
      *
-     * @param {Options} options
-     * @return {void}
+     * @param {Object} options -
+     * @returns {void}
      */
     async help(options) {
         const output = [];
@@ -125,12 +126,12 @@ export default class Cli {
     }
 
     /**
-     * Executes a cli command
+     * Executes a cli command.
      *
-     * @param {String} command
-     * @param {String} subcommand
-     * @param {Object} options
-     * @return {Promise}
+     * @param {string} command -
+     * @param {string} subcommand -
+     * @param {Object} options -
+     * @returns {Promise}
      */
     async executeCommand(command=false, subcommand=false, options) {
         if (!command || !this.commands[command]) {
@@ -175,10 +176,10 @@ export default class Cli {
     /* --- public --- */
 
     /**
-     * Defines the cli's default command
+     * Defines the cli's default command.
      *
-     * @param {String|Object|Command}
-     * @return {Cli}
+     * @param {String|Object|Command} command - The command to be set as default.
+     * @returns {Cli}
      */
     addDefaultCommand(command=false) {
         if (!command) {
@@ -204,10 +205,10 @@ export default class Cli {
     }
 
     /**
-     * Defines cli commands
+     * Defines cli commands.
      *
-     * @param {Array} commands
-     * @return {Cli}
+     * @param {Array} commands - The commands to be added.
+     * @returns {Cli}
      */
     addCommands(commands=[]) {
         for (const item of commands) {
@@ -224,10 +225,10 @@ export default class Cli {
     }
 
     /**
-     * Defines cli options
+     * Defines cli options.
      *
-     * @param {Array} options
-     * @return {Cli}
+     * @param {Array} options -
+     * @returns {Cli}
      */
     addOptions(options=[]) {
         for (const option of options) {
@@ -238,11 +239,11 @@ export default class Cli {
     }
 
     /**
-     * Notifies the user
+     * Notifies the user.
      *
-     * @param {String} message
-     * @param {Object} options
-     * @return {Promise}
+     * @param {string} message -
+     * @param {Object} options -
+     * @returns {Promise}
      */
     async notify(message, options={}) {
         if (!process.stdout.isTTY || isCI) {
@@ -255,11 +256,13 @@ export default class Cli {
 
         // promisify node-notifier
         const promise = new Promise((resolve, reject) => {
-            notifier.notify({
+            const mergedOptions = Object.assign({
                 title: `${this.name}@${this.version}`,
                 message: message || 'Done.',
-                sound: Boolean(options.sound) || false
-            }, (error, result) => {
+                sound: true
+            }, options);
+
+            notifier.notify(mergedOptions, (error, result) => {
                 if (error) {
                     reject(new Error(error));
                 }
@@ -272,12 +275,13 @@ export default class Cli {
     }
 
     /**
-     * Executes the cli command
+     * Executes the cli command.
      *
-     * @return {Promise}
+     * @returns {Promise}
      */
     async run() {
-        const [ command, subcommand = false ] = (this.args.get(0) || this.defaultCommand).split(':');
+        const commandline = this.args.get(0) || this.defaultCommand;
+        const [ command, subcommand = false ] = commandline.split(':');
         const options = new Options(this.options);
 
         try {
@@ -292,10 +296,10 @@ export default class Cli {
 
             // notify user of successful execution
             await this.notify(`🎉 Command "${this.args.get(0)}" executed successfully!`);
-        } catch(e) {
-            this.log.red(`Error: ${e.message}`);
-            this.log.red('You can display the help with the flag "-h" or the subcommand "help".');
+        } catch(error) {
             await this.notify('😔 An error occured!');
+            this.log.red(`Error: ${error.message}`);
+            this.log.red('You can display the help with the flag "-h" or the subcommand "help".');
             process.exit(1);
         }
     }
