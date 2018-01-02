@@ -17,7 +17,7 @@ $ yarn add modern-cli
 ## Basic Usage
 Here are some basic examples for the usage. For more information see the [docs](https://pascaliske.github.io/modern-cli/docs).
 
-### Using functions
+### Using a simple [CommandObject](https://pascaliske.github.io/modern-cli/interfaces/commandobject.html)
 
 ###### `./examples/basic.js`:
 ```js
@@ -41,7 +41,7 @@ $ babel-node ./examples/basic.js command
 $ ./examples/basic.js --help
 ```
 
-### Using a dedicated command class
+### Using a dedicated [command class](https://pascaliske.github.io/modern-cli/classes/command.html)
 
 ###### `./examples/basic2.js`:
 ```js

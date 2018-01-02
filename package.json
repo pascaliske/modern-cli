@@ -16,20 +16,29 @@
     "url": "https://github.com/pascaliske/modern-cli/issues"
   },
   "main": "dist/index.js",
+  "types": "typings/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
     "prepublish": "yarn run build",
+    "build": "rm -rf dist/ && tsc",
+    "watch": "yarn run build --watch",
+    "docs": "rm -rf docs/ && typedoc --target es5 --mode file --module commonjs --excludePrivate --out docs/ src/*.ts",
+    "cli": "node examples/cli.js",
+    "cli:yargs": "node examples/yargs.js"
   },
   "dependencies": {
     "ansi-styles": "^3.2.0",
-    "chalk": "^2.1.0",
-    "ci-info": "^1.1.1",
+    "chalk": "^2.3.0",
+    "ci-info": "^1.1.2",
+    "configstore": "^3.1.1",
+    "convert-hrtime": "^2.0.0",
     "debug": "^3.1.0",
     "execa": "^0.8.0",
-    "inquirer": "^3.3.0",
-    "inquirer-chalk-pipe": "^1.1.0",
+    "find-root": "^1.1.0",
+    "inquirer": "^4.0.0",
+    "inquirer-chalk-pipe": "^1.2.0",
     "inquirer-path": "^1.0.0-beta5",
     "js-yaml": "^3.10.0",
     "lodash": "^4.17.4",
@@ -37,13 +46,20 @@
     "node-fetch": "^1.7.3",
     "node-notifier": "mikaelbr/node-notifier#master",
     "ora": "^1.3.0",
-    "yargs": "^9.0.1"
+    "read-pkg-up": "^3.0.0",
+    "winston": "^2.4.0",
+    "yargs": "^10.0.3"
   },
   "devDependencies": {
-    "ava": "^0.22.0",
-    "eslint": "^4.9.0",
+    "@types/configstore": "^2.1.1",
+    "@types/node": "^8.0.53",
+    "@types/node-notifier": "^0.0.28",
+    "@types/yargs": "^8.0.2",
+    "ava": "^0.23.0",
+    "eslint": "^4.11.0",
     "eslint-config-entoj": "^1.0.7",
     "eslint-plugin-ava": "^4.2.2",
-    "nodemon": "^1.12.1"
+    "nodemon": "^1.12.1",
+    "typescript": "^2.6.1"
   }
 }
