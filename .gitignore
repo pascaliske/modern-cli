@@ -1,6 +1,7 @@
 # files
 .idea
 .DS_Store
+*.code-*
 *.sublime-*
 *.log
 
