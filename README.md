@@ -1,8 +1,8 @@
 # `pascaliske/modern-cli`
 
-[![npm](https://img.shields.io/npm/v/modern-cli.svg?style=flat)]()
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://raw.githubusercontent.com/pascaliske/modern-cli/master/LICENSE.md)
-[![Travis](https://img.shields.io/travis/pascaliske/modern-cli.svg?style=flat)]()
+[![npm](https://img.shields.io/npm/v/modern-cli.svg?style=flat)](https://www.npmjs.com/package/modern-cli)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/pascaliske/modern-cli/blob/master/LICENSE.md)
+[![Travis](https://img.shields.io/travis/pascaliske/modern-cli.svg?style=flat)](https://travis-ci.org/pascaliske/modern-cli)
 [![Greenkeeper badge](https://badges.greenkeeper.io/pascaliske/modern-cli.svg)](https://greenkeeper.io/)
 
 > Library for class based modern cli scripts.
@@ -10,16 +10,19 @@
 Write modern node cli scripts using ES6 classes.
 
 ## Install
+
 ```bash
 $ yarn add modern-cli
 ```
 
 ## Basic Usage
+
 Here are some basic examples for the usage. For more information see the [docs](https://pascaliske.github.io/modern-cli/docs).
 
 ### Using a simple [CommandObject](https://pascaliske.github.io/modern-cli/interfaces/commandobject.html)
 
 ###### `./examples/basic.js`:
+
 ```js
 import { Cli } from 'modern-cli';
 
@@ -44,6 +47,7 @@ $ ./examples/basic.js --help
 ### Using a dedicated [command class](https://pascaliske.github.io/modern-cli/classes/command.html)
 
 ###### `./examples/basic2.js`:
+
 ```js
 import { Cli } from 'modern-cli';
 import MyCommand from './mycommand.js';
@@ -56,6 +60,7 @@ new Cli('script')
 ```
 
 ###### `./examples/mycommand.js`:
+
 ```js
 import { Command } from 'modern-cli';
 
@@ -75,10 +80,11 @@ export default class MyCommand extends Command {
 
 Again, you can use the script in one of the following ways:
 
-```
+```bash
 $ ./examples/basic2.js mycommand
 $ ./examples/basic2.js --help
 ```
 
 ## License
+
 MIT © [Pascal Iske](https://pascal-iske.de)
