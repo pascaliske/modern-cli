@@ -3,7 +3,8 @@
     "target": "es5",
     "lib": [
       "esnext",
-      "es2017.object"
+      "es2017.object",
+      "dom"
     ],
     "outDir": "./dist",
     "moduleResolution": "node",
