@@ -3,9 +3,10 @@ import { readFile, writeFile } from 'mz/fs'
 import { safeLoad, safeDump } from 'js-yaml'
 import fetch from 'node-fetch'
 import * as yargs from 'yargs'
-import { CommandObject } from './commandline'
+import { CommandObject, Arguments, Builder, PrepareFn, BuilderFn, HandlerFn } from './commandline'
 import { Logger } from './logger'
 import { Prompt } from './prompt'
+import { Storage } from './storage'
 
 export class Command implements CommandObject {
     /* --- constants --- */
@@ -18,11 +19,11 @@ export class Command implements CommandObject {
 
     public aliases: Array<string>
 
-    public builder: (yargs: yargs.Argv) => yargs.Argv
-
-    public handler: (args: any) => void
+    public root: string
 
     public log: Logger
+
+    public storage: Storage
 
     /* --- constructor --- */
 
@@ -31,20 +32,25 @@ export class Command implements CommandObject {
      *
      * @param {string} name -
      * @param {string} description -
+     * @param {Function} prepare -
+     * @param {Function} builder -
      * @param {Function} handler -
      * @returns {Command}
      */
-    constructor(name: string, description: string, builder: (yargs: yargs.Argv) => yargs.Argv, handler: (args: any) => void) {
+    constructor(name: string, description: string, prepare: PrepareFn = null, builder: BuilderFn = null, handler: HandlerFn = null) {
         this.name = name || ''
         this.description = description || ''
-        // this.log = new Logger(name)
 
-        if (builder) {
-            this.builder = builder
+        if (prepare !== null) {
+            this.prepare = prepare.bind(this)
         }
 
-        if (handler) {
-            this.handler = handler
+        if (builder !== null) {
+            this.builder = builder.bind(this)
+        }
+
+        if (handler !== null) {
+            this.handler = handler.bind(this)
         }
     }
 
@@ -124,6 +130,18 @@ export class Command implements CommandObject {
 
     /* --- public --- */
 
+    public prepare(): void {
+    }
+
+    public builder(args: Builder): Builder {
+        console.log('default builder', args)
+        return args
+    }
+
+    public async handler(args: Arguments): Promise<void>  {
+        console.log('default handler', args)
+    }
+
     /**
      * Creates a new command from an command object.
      *
@@ -131,7 +149,7 @@ export class Command implements CommandObject {
      * @param {CommandObject} object - Command object describing the command.
      * @returns {Command}
      */
-    public static fromObject({ name, description, builder, handler }: CommandObject): Command {
-        return new Command(name, description, builder, handler)
+    public static fromObject({ name, description, prepare, builder, handler }: CommandObject): Command {
+        return new Command(name, description, prepare, builder, handler)
     }
 }

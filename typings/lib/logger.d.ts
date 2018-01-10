@@ -1,4 +1,3 @@
-import * as Spinner from 'ora';
 export declare class Logger {
     /**
      * Logging levels.
@@ -121,7 +120,7 @@ export declare class Logger {
      * @param {object} options -
      * @returns {Spinner}
      */
-    spinner(text?: string, options?: object): Spinner;
+    spinner(text?: string, options?: object): any;
     /**
      * Returns all logging levels in an array.
      *

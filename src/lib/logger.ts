@@ -2,7 +2,6 @@ import debug from 'debug'
 import * as Spinner from 'ora'
 import * as chalk from 'chalk'
 import * as styles from 'ansi-styles'
-// import { Options } from './options'
 
 export class Logger {
     /* --- constants --- */
@@ -17,14 +16,6 @@ export class Logger {
     public static readonly ERROR: string = 'error'
 
     /* --- properties --- */
-
-    // /**
-    //  * Current cli options.
-    //  *
-    //  * @private
-    //  * @property {Options}
-    //  */
-    // private options: Options
 
     /**
      * Level specific debug instances.
@@ -255,13 +246,15 @@ export class Logger {
      * @param {object} options -
      * @returns {Spinner}
      */
-    public spinner(text: string = 'waiting...', options: object = {}): Spinner {
-        return new Spinner({
+    public spinner(text: string = 'waiting...', options: object = {}): any {
+        const spinner = new Spinner({
             text: text,
             spinner: options['visual'],
             color: options['color'],
             interval: 80
         })
+
+        return spinner.start()
     }
 
     /**
