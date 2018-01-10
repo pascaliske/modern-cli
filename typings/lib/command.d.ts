@@ -1,23 +1,24 @@
-/// <reference types="yargs" />
-import * as yargs from 'yargs';
-import { CommandObject } from './commandline';
+import { CommandObject, Arguments, Builder, PrepareFn, BuilderFn, HandlerFn } from './commandline';
 import { Logger } from './logger';
+import { Storage } from './storage';
 export declare class Command implements CommandObject {
     name: string;
     description: string;
     aliases: Array<string>;
-    builder: (yargs: yargs.Argv) => yargs.Argv;
-    handler: (args: any) => void;
+    root: string;
     log: Logger;
+    storage: Storage;
     /**
      * Initializes the cli command.
      *
      * @param {string} name -
      * @param {string} description -
+     * @param {Function} prepare -
+     * @param {Function} builder -
      * @param {Function} handler -
      * @returns {Command}
      */
-    constructor(name: string, description: string, builder: (yargs: yargs.Argv) => yargs.Argv, handler: (args: any) => void);
+    constructor(name: string, description: string, prepare?: PrepareFn, builder?: BuilderFn, handler?: HandlerFn);
     /**
      * Reads a yaml file from disk and parses it into js.
      *
@@ -54,6 +55,9 @@ export declare class Command implements CommandObject {
      * @returns {Promise}
      */
     protected prompt(questions?: Array<object>): Promise<Array<any>>;
+    prepare(): void;
+    builder(args: Builder): Builder;
+    handler(args: Arguments): Promise<void>;
     /**
      * Creates a new command from an command object.
      *
@@ -61,5 +65,5 @@ export declare class Command implements CommandObject {
      * @param {CommandObject} object - Command object describing the command.
      * @returns {Command}
      */
-    static fromObject({name, description, builder, handler}: CommandObject): Command;
+    static fromObject({name, description, prepare, builder, handler}: CommandObject): Command;
 }
