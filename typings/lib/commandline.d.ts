@@ -63,7 +63,7 @@ export declare class CommandLine {
      *
      * @returns {Promise<Arguments>}
      */
-    parse(callback?: boolean): Promise<Arguments>;
+    parse(): Promise<Arguments>;
     /**
      * Checks if the command line is locked.
      *

@@ -88,7 +88,6 @@ export class CommandLine {
     public addCommand(command: CommandObject): Builder {
         const name = command.name
         const description = command.description
-        const prepare = command.prepare.bind(command)
         const builder = command.builder.bind(command)
         const handler = command.handler.bind(command)
 
@@ -110,7 +109,7 @@ export class CommandLine {
      *
      * @returns {Promise<Arguments>}
      */
-    public async parse(callback: boolean = false): Promise<Arguments> {
+    public async parse(): Promise<Arguments> {
         this.args =  this.yargs
             .demandCommand(this.mode === Mode.SINGLE ? 0 : 1)
             .option('h', {
