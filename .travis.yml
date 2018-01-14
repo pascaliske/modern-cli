@@ -1,0 +1,20 @@
+language: node_js
+node_js:
+- '9'
+- '8'
+- '7'
+install:
+- yarn install
+- yarn run build
+script:
+- yarn run test
+deploy:
+  provider: npm
+  email: info@pascal-iske.de
+  api_key:
+    secure: o1w3WGPfD75U6QocePugINiVEBaKaskiNshw+VIvt1Ck7GSIhp+KnDzO2ZCXt0JkzfB5FmhkTsnzxwPxA/eJY+CnGUPR428pMA8Dmw6w9SMiX+y8TPLKHCR1tN26yg2si/rQSr7cO7TJfGZQ+xjnFMp+2+DySf8Qr4dIyuLlA/M+ghWPTb1BwfSv7CD3ZZoG+IvyOdl5AkquC7kq9LwuxThVDOgFlTKGDolCKbhRATkkn/EBBotmhMZywgHgeaG1HPximr/bNtJ4PyLImxkOlbAPvUiX9Kszppxfy0e5XTp0gBolWtQ8J88edWPFJ/GXE3BVihF+eoDa4+lOZZv+8UzeQOEeZ2nOH6FN/LjSp3dHzmYpmB4CrtEj+oQJ9MyPQ5IhUut54zrr4s71ZdmlIDIZy2MpxifTVm+St0DiN+bfFCSMFfeqy73rlLb2lRrUxlrPn16yVpB9U+UlhYa466npEHvguFHB5xmp0zNKYsRXdUjtF3WX3h+ZlWw+MFHKHE2qAFHpQEHuvtxFr5KjBTcsnggrABICT2uwFTLmQlWvtdTQY9qUL27R9bn6M/VtannYJdCEUtZOw5x0MUsy5J0xlrGAs8XdC23b6d2SXP1f//ByMI492loyJiSrPuCwrEYxWDYFYmQiy4z+VbicjfnI/BTi0EV0KFzRpYXyTeo=
+  skip_cleanup: true
+  on:
+    tags: true
+    branch: master
+    node: 9
