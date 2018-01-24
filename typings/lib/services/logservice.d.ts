@@ -1,3 +1,5 @@
+/// <reference types="winston" />
+import * as winston from 'winston';
 export declare enum LogLevels {
     ERROR = "error",
     WARN = "warn",
@@ -6,14 +8,21 @@ export declare enum LogLevels {
     DEBUG = "debug",
     SILLY = "silly",
 }
-export declare class Logger {
-    private logger;
+export declare class LogService {
+    logger: winston.LoggerInstance;
     /**
      * Initializes the logger.
      *
      * @returns {Logger}
      */
     constructor();
+    /**
+     * Formats the given message. Supports **bold**, *italic* and <highlight>.
+     *
+     * @param {string} message - The message to format.
+     * @returns {string}
+     */
+    private formatMessage(message);
     /**
      * Logs the given message with a verbosity of given level.
      *

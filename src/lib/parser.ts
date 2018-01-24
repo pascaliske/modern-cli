@@ -1,6 +1,8 @@
 import * as yargs from 'yargs'
-import { Logger } from './logger'
-import { Storage } from './storage'
+
+import { Container, Service, Inject } from './container'
+import { LogService } from './services/logservice'
+import { StorageService } from './services/storageservice'
 
 export enum Mode {
     SINGLE = 'single',
@@ -17,13 +19,7 @@ export interface HandlerFn {
 }
 export interface Builder extends yargs.Argv {}
 export interface Arguments extends yargs.Arguments {}
-export interface CommandObject extends yargs.CommandModule {
-    name: string
-    description: string
-    aliases?: Array<string>
-    root?: string
-    log?: Logger
-    storage?: Storage
+export interface CommandObject {
     prepare?: PrepareFn
     builder: BuilderFn
     handler: HandlerFn
@@ -32,12 +28,17 @@ export interface OptionObject extends yargs.Options {
     key: string
 }
 
-export class CommandLine {
+@Service()
+export class Parser {
     /* --- constants --- */
 
     /* --- properties --- */
 
-    private log: Logger
+    private name: string
+
+    private version: string
+
+    private log: LogService
 
     private yargs: Builder
 
@@ -54,26 +55,41 @@ export class CommandLine {
      *
      * @returns {CommandLine}
      */
-    constructor(log: Logger, name: string, version: string) {
-        this.log = log
+    constructor() {
+        this.name = Container.get('name')
+        this.version = Container.get('version')
+        this.log = Container.get(LogService)
         this.yargs = yargs
             .strict()
             .locale('en')
             .epilogue('epilogue')
             .help('help', 'Shows this help message')
-            .version('version', 'Shows the version number', version)
+            .version('version', 'Shows the version number', this.version)
             .completion('completions')
             .showHelpOnFail(false)
             .fail((message: string, error: Error): void => {
-                if (message) {
-                    throw new Error(message)
-                }
-
-                throw error
+                this.fail(message, error)
             })
     }
 
     /* --- private --- */
+
+    /**
+     * Displays an error message if the yargs parser failed.
+     *
+     * @param {string} message - The error message.
+     * @param {Error} error - The error directly.
+     * @returns{void}
+     */
+    private fail(message: string, error: Error): void {
+        console.log('==>', 'CommandLine::fail')
+
+        if (message) {
+            throw new Error(message)
+        }
+
+        throw error
+    }
 
     /* --- protected --- */
 
@@ -85,9 +101,11 @@ export class CommandLine {
      * @param {CommandObject} command -
      * @returns {void}
      */
-    public addCommand(command: CommandObject): Builder {
-        const name = command.name
-        const description = command.description
+    public addCommand(Command: any): Builder {
+        const command: CommandObject = Container.get(Command.name)
+
+        const name = Command.command
+        const description = Command.description
         const builder = command.builder.bind(command)
         const handler = command.handler.bind(command)
 
@@ -127,7 +145,7 @@ export class CommandLine {
                 describe: '',
                 count: true
             })
-            .argv
+            .parse()
 
         return this.args
     }

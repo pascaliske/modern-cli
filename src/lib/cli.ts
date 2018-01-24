@@ -1,13 +1,14 @@
-import { basename, dirname } from 'path'
+import 'reflect-metadata'
+import { basename } from 'path'
 import { padEnd, upperFirst } from 'lodash'
 import { isCI } from 'ci-info'
-import { notify } from 'node-notifier'
-import { sync as findPackage } from 'pkg-up'
-import { sync as readPackage } from 'read-pkg-up'
-import { CommandLine, CommandObject, OptionObject, Builder, Arguments, PrepareFn, BuilderFn, HandlerFn, Mode } from './commandline'
-import { Logger } from './logger'
-import { Command } from './command'
-import { Storage } from './storage'
+
+import { findRoot, findName, findVersion } from './utils'
+import { Container } from './container'
+import { LogService } from './services/logservice'
+import { NotificationService } from './services/notificationservice'
+import { StorageService } from './services/storageservice'
+import { Parser, CommandObject, OptionObject, Builder, Arguments, PrepareFn, BuilderFn, HandlerFn, Mode } from './parser'
 
 export class Cli {
     /* --- constants --- */
@@ -20,11 +21,13 @@ export class Cli {
 
     private root: string
 
-    private log: Logger
+    private log: LogService
 
-    private commandline: CommandLine
+    private notifications: NotificationService
 
-    private storage: Storage
+    private parser: Parser
+
+    private storage: StorageService
 
     /* --- constructor --- */
 
@@ -37,88 +40,31 @@ export class Cli {
      * @returns {Cli}
      */
     constructor(name: string = null, version: string = null, storage: boolean = false) {
-        // fetch package data
-        const pkg = readPackage(__dirname)
+        // prepare di container
+        Container.set('name', findName())
+        Container.set('version', findVersion())
+        Container.set('root', findRoot())
 
-        if (name === null) {
-            name = pkg['name'] || basename(module.id)
-        }
-
-        if (version === null) {
-            version = pkg['version'] || '1.0.0'
-        }
-
-        // enable all loggers including cli name
-        process.env.DEBUG = `${name}*`
-
-        this.name = name
-        this.version = version
-        this.root = this.findRoot()
-        this.log = new Logger(name)
-        this.commandline = new CommandLine(this.log, this.name, this.version)
+        this.name = Container.get('name')
+        this.version = Container.get('version')
+        this.root = Container.get('root')
+        this.log = Container.get(LogService)
+        this.notifications = Container.get(NotificationService)
+        this.parser = Container.get(Parser)
+        this.storage = Container.get(StorageService)
 
         if (storage) {
-            this.storage = new Storage(name, version)
+            this.storage.create()
         }
 
         // handle uncaught errors
-        process.on('uncaughtException', error => this.exit(1, error))
-        process.on('unhandledRejection', error => this.exit(1, error))
+        // process.on('uncaughtException', error => this.exit(1, error))
+        // process.on('unhandledRejection', error => this.exit(1, error))
     }
 
     /* --- private --- */
 
-    private findRoot(): string {
-        const findHighestModule = (): NodeModule => {
-            const stack = [module]
-            let parent = module.parent
-            let current
-
-            for (; parent; parent = parent.parent) {
-                stack.push (parent)
-            }
-
-            while ((current = stack.pop()) != null) {
-                try {
-                    return current
-                } catch (ex) {}
-            }
-        }
-
-        return dirname(findPackage(findHighestModule().filename))
-    }
-
     /* --- protected --- */
-
-    /**
-     * Notifies the user with node-notifier.
-     *
-     * @param {string} message - The message for the notification.
-     * @param {object} options - Optional options for the notification.
-     * @returns {Promise<any>}
-     */
-    protected notify(message: string, options: object = {}): Promise<any> {
-        // ignore notifications on ci or non-tty
-        if (!process.stdout.isTTY || isCI) {
-            return Promise.resolve()
-        }
-
-        // promisify node-notifier
-        return new Promise((resolve, reject) => {
-            const defaults = {
-                title: `${this.name}@${this.version}`,
-                message: message || 'Done.',
-                sound: true
-            }
-
-            notify(Object.assign(defaults, options), (error, result) => {
-                if (error) {
-                    reject(error)
-                }
-                resolve(result)
-            })
-        })
-    }
 
     /**
      * Exits the cli with an given status code, message / error.
@@ -130,7 +76,7 @@ export class Cli {
     protected async exit(status: number = 0, message: any = null): Promise<void> {
         // exits with an error
         if (status > 0) {
-            await this.notify('😔 An error occured!')
+            await this.notifications.notify('😔 An error occured!')
             this.log.error(message)
 
             // exit with given status code
@@ -139,7 +85,7 @@ export class Cli {
         }
 
         // exits with success message
-        await this.notify(message)
+        await this.notifications.notify(message)
         this.log.info(message)
 
         // exit with given status code
@@ -152,61 +98,54 @@ export class Cli {
     /**
      * Register cli commands to the cli instance.
      *
-     * @param {Array<Command>} commands - The commands to be added.
+     * @param {Array<CommandObject>} commands - The commands to be added.
      * @returns {Cli}
      */
     public addCommands(commands: Array<CommandObject>): Cli {
+        // set mode to multiple
+        this.parser.setMode(Mode.MULTIPLE)
+
         // refuse command if theres already one set
-        if (this.commandline.isLocked()) {
+        if (this.parser.isLocked()) {
             return this
         }
 
-        // set mode to multiple
-        this.commandline.setMode(Mode.MULTIPLE)
-
-        for (let command of commands) {
-            // prepare command
-            if (typeof command.prepare !== 'function') {
-                command.prepare = () => {}
-            }
-            command.root = this.root
-            command.log = this.log
-            command.storage = this.storage
-            command.prepare()
-
-            // add command
-            this.commandline.addCommand(command)
+        // add commands to parser
+        for (const command of commands) {
+            this.parser.addCommand(command)
         }
 
         // lock command line
-        this.commandline.lock()
+        this.parser.lock()
 
         return this
     }
 
+    /**
+     * Register a single cli commands to the cli instance as default.
+     *
+     * @param {CommandObject} command - The commands to be added.
+     * @returns {Cli}
+     */
     public addSingleCommand(command: CommandObject): Cli {
+        // set mode to single
+        this.parser.setMode(Mode.SINGLE)
+
         // refuse command if theres already one set
-        if (this.commandline.isLocked()) {
+        if (this.parser.isLocked()) {
             return this
         }
 
-        // set mode to single
-        this.commandline.setMode(Mode.SINGLE)
-
         // prepare command
-        if (typeof command.prepare !== 'function') {
-            command.prepare = () => {}
+        if (typeof command.prepare === 'function') {
+            command.prepare()
         }
-        command.root = this.root
-        command.log = this.log
-        command.storage = this.storage
-        command.prepare()
 
         // add command and set to single mode
-        this.commandline.addCommand(command)
+        this.parser.addCommand(command)
 
         // lock command line
-        this.commandline.lock()
+        this.parser.lock()
 
         return this
     }
@@ -219,7 +158,7 @@ export class Cli {
      */
     public addOptions(options: Array<OptionObject> = []): Cli {
         for (const option of options) {
-            this.commandline.addOption(option)
+            this.parser.addOption(option)
         }
 
         return this
@@ -233,10 +172,10 @@ export class Cli {
     public async run(): Promise<any> {
         try {
             this.log.info(`v${this.version}`)
-
-            await this.commandline.parse()
+            await this.parser.parse()
         } catch (error) {
-            await this.exit(1, error.message)
+            // await this.exit(1, error.message)
+            console.error('cli::error', error)
         }
     }
 }

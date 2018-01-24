@@ -1,10 +1,12 @@
-import { CommandObject, OptionObject } from './commandline';
+import 'reflect-metadata';
+import { CommandObject, OptionObject } from './parser';
 export declare class Cli {
     private name;
     private version;
     private root;
     private log;
-    private commandline;
+    private notifications;
+    private parser;
     private storage;
     /**
      * Initializes the cli instance.
@@ -15,15 +17,6 @@ export declare class Cli {
      * @returns {Cli}
      */
     constructor(name?: string, version?: string, storage?: boolean);
-    private findRoot();
-    /**
-     * Notifies the user with node-notifier.
-     *
-     * @param {string} message - The message for the notification.
-     * @param {object} options - Optional options for the notification.
-     * @returns {Promise<any>}
-     */
-    protected notify(message: string, options?: object): Promise<any>;
     /**
      * Exits the cli with an given status code, message / error.
      *
@@ -35,10 +28,16 @@ export declare class Cli {
     /**
      * Register cli commands to the cli instance.
      *
-     * @param {Array<Command>} commands - The commands to be added.
+     * @param {Array<CommandObject>} commands - The commands to be added.
      * @returns {Cli}
      */
     addCommands(commands: Array<CommandObject>): Cli;
+    /**
+     * Register a single cli commands to the cli instance as default.
+     *
+     * @param {CommandObject} command - The commands to be added.
+     * @returns {Cli}
+     */
     addSingleCommand(command: CommandObject): Cli;
     /**
      * Defines cli options.

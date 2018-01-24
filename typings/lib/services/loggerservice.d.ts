@@ -6,7 +6,7 @@ export declare enum LogLevels {
     DEBUG = "debug",
     SILLY = "silly",
 }
-export declare class Logger {
+export declare class LogService {
     private logger;
     /**
      * Initializes the logger.

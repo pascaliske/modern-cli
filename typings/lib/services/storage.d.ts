@@ -1,14 +1,12 @@
 import * as Configstore from 'configstore';
-
-export class Storage {
-    /* --- constants --- */
-
-    /* --- properties --- */
-
-    private storage: Configstore;
-
-    /* --- constructor --- */
-
+export interface StorageOptions extends Configstore.ConfigstoreOptions {
+}
+export declare class StorageService {
+    private name;
+    private version;
+    private defaults;
+    private options;
+    private storage;
     /**
      * Initializes the cli storage.
      *
@@ -16,48 +14,38 @@ export class Storage {
      * @param {string} version -
      * @returns {Storage}
      */
-    constructor(name: string, version: string) {
-        const defaults = {};
-        const options = {};
-
-        this.storage = new Configstore(name, defaults, options);
-
-        // initially store the version number
-        this.set('version', version);
-    }
-
-    /* --- protected --- */
-
-    /* --- public --- */
-
+    constructor(name: string, version: string);
+    /**
+     * Creates a storage instance.
+     *
+     * @returns {void}
+     */
+    create(): void;
     /**
      * Returns all stored items.
      *
      * @returns {object}
      */
-    public all(): object {
-        return this.storage.all;
-    }
-
+    all(): object;
     /**
      * Returns the size of all stored items.
      *
      * @returns {number}
      */
-    public size(): number {
-        return this.storage.size;
-    }
-
+    size(): number;
+    /**
+     * Returns the path to the config file.
+     *
+     * @returns {number}
+     */
+    path(): string;
     /**
      * Returns the value of the given key.
      *
      * @param {string} key - The key to search for in storage.
      * @returns {any}
      */
-    public get(key: string): any {
-        return this.storage.get(key);
-    }
-
+    get(key: string): any;
     /**
      * Stores a new item in the storage with given key.
      *
@@ -65,36 +53,25 @@ export class Storage {
      * @param {any} value - The value to store.
      * @returns {void}
      */
-    public set(key: string, value: any): void {
-        this.storage.set(key, value);
-    }
-
+    set(key: string, value: any): void;
     /**
      * Checks if an item is stored for the given key.
      *
      * @param {string} key - The key to search for in storage.
      * @returns {boolean}
      */
-    public has(key: string): boolean {
-        return this.storage.has(key);
-    }
-
+    has(key: string): boolean;
     /**
      * Deletes the item for the given key in storage.
      *
      * @param {string} key - The key to search for in storage.
      * @returns {void}
      */
-    public delete(key: string): void {
-        this.storage.delete(key);
-    }
-
+    delete(key: string): void;
     /**
      * Clears the complete storage.
      *
      * @returns {void}
      */
-    public clear(): void {
-        this.storage.clear();
-    }
+    clear(): void;
 }
