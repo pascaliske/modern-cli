@@ -165,6 +165,13 @@ export class LogService {
      * @returns {Array<string>}
      */
     public getLevels(): Array<string> {
-        return [LogLevels.ERROR, LogLevels.WARN, LogLevels.INFO, LogLevels.VERBOSE, LogLevels.DEBUG, LogLevels.SILLY]
+        return [
+            LogLevels.ERROR,
+            LogLevels.WARN,
+            LogLevels.INFO,
+            LogLevels.VERBOSE,
+            LogLevels.DEBUG,
+            LogLevels.SILLY
+        ]
     }
 }
