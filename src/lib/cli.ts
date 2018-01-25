@@ -52,7 +52,7 @@ export class Cli {
      */
     public constructor(name: string = null, version: string = null, storage: boolean = false) {
         // prepare di container
-        Container.set('name', findName(name))
+        Container.set('name', findName(name, basename(module.id)))
         Container.set('version', findVersion(version))
         Container.set('root', findRoot())
 

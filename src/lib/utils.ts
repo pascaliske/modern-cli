@@ -10,8 +10,8 @@ import { safeLoad, safeDump } from 'js-yaml'
  * @param {string} override - Possibility to override the name field.
  * @returns {string}
  */
-export const findName = (override: string = null): string => {
-    return override || readPackage(__dirname).name || basename(module.id)
+export const findName = (override: string = null, fallback: string = null): string => {
+    return override || readPackage(__dirname).name || fallback
 }
 
 /**

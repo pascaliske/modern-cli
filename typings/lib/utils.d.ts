@@ -4,7 +4,7 @@
  * @param {string} override - Possibility to override the name field.
  * @returns {string}
  */
-export declare const findName: (override?: string) => string;
+export declare const findName: (override?: string, fallback?: string) => string;
 /**
  * Finds the version field of the package json file of the current project.
  *
