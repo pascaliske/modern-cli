@@ -44,6 +44,10 @@ export class LogService {
      * @returns {string}
      */
     private format(message: string): string {
+        if (typeof message !== 'string') {
+            return message
+        }
+
         return message
             .replace(/(\*\*[a-zA-z-_/\\]+?\*\*)/g, match => {
                 return chalk.bold(match.replace(/[*]/g, ''))
@@ -145,14 +149,12 @@ export class LogService {
      * Creates and returns a new spinner instance.
      *
      * @param {string} text -
-     * @param {object} options -
      * @returns {Spinner}
      */
-    public spinner(text: string = 'waiting...', options: any = {}): any {
+    public spinner(text: string): any {
         const spinner = new Spinner({
-            text: text,
-            spinner: options.visual,
-            color: options.color,
+            text: this.format(text),
+            spinner: 'dots',
             interval: 80
         })
 

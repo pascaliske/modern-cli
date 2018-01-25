@@ -84,10 +84,9 @@ export declare class LogService {
      * Creates and returns a new spinner instance.
      *
      * @param {string} text -
-     * @param {object} options -
      * @returns {Spinner}
      */
-    spinner(text?: string, options?: any): any;
+    spinner(text: string): any;
     /**
      * Returns all logging levels in an array.
      *
