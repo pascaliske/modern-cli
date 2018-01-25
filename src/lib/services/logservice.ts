@@ -45,16 +45,16 @@ export class LogService {
      */
     private format(message: string): string {
         return message
-            .replace(/(\*\*[a-zA-z-_]+?\*\*)/g, match => {
+            .replace(/(\*\*[a-zA-z-_/\\]+?\*\*)/g, match => {
                 return chalk.bold(match.replace(/[*]/g, ''))
             })
-            .replace(/(\*[a-zA-z-_]+?\*)/g, match => {
+            .replace(/(\*[a-zA-z-_/\\]+?\*)/g, match => {
                 return chalk.italic(match.replace(/[*]/g, ''))
             })
-            .replace(/(<<[a-zA-z-_]+?>>)/g, match => {
+            .replace(/(<<[a-zA-z-_/\\]+?>>)/g, match => {
                 return chalk.red(match.replace(/[<>]/g, ''))
             })
-            .replace(/(<[a-zA-z-_]+?>)/g, match => {
+            .replace(/(<[a-zA-z-_/\\]+?>)/g, match => {
                 return chalk.cyan(match.replace(/[<>]/g, ''))
             })
     }
