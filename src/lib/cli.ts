@@ -36,9 +36,9 @@ export class Cli {
 
     private notifications: NotificationService
 
-    private parser: Parser
-
     private storage: StorageService
+
+    private parser: Parser
 
     /* --- constructor --- */
 
@@ -59,10 +59,10 @@ export class Cli {
         this.name = Container.get('name')
         this.version = Container.get('version')
         this.root = Container.get('root')
-        this.log = Container.get(LogService)
-        this.notifications = Container.get(NotificationService)
+        this.log = Container.get('LogService')
+        this.notifications = Container.get('NotificationService')
+        this.storage = Container.get('StorageService')
         this.parser = Container.get(Parser)
-        this.storage = Container.get(StorageService)
 
         if (storage) {
             this.storage.create()
