@@ -1,0 +1,126 @@
+{
+  "extends": [
+    "tslint:latest",
+    "tslint-config-prettier"
+  ],
+  "rules": {
+    "array-type": [
+      true,
+      "generic"
+    ],
+    "arrow-return-shorthand": true,
+    "await-promise": true,
+    "class-name": true,
+    "comment-format": [
+      true,
+      "check-space"
+    ],
+    "curly": true,
+    "encoding": true,
+    "interface-name": false,
+    "jsdoc-format": true,
+    "label-position": true,
+    "max-classes-per-file": [
+      true,
+      1
+    ],
+    "member-access": [
+      true,
+      "check-accessor",
+      "check-constructor",
+      "check-parameter-property"
+    ],
+    "member-ordering": [
+      true,
+      {
+        "order": [
+          "private-static-field",
+          "public-static-field",
+          "private-instance-field",
+          "public-instance-field",
+          "private-constructor",
+          "public-constructor",
+          "private-instance-method",
+          "protected-instance-method",
+          "public-instance-method"
+        ]
+      }
+    ],
+    "newline-before-return": false,
+    "no-arg": true,
+    "no-console": true,
+    "no-construct": true,
+    "no-debugger": true,
+    "no-default-export": true,
+    "no-duplicate-imports": true,
+    "no-duplicate-super": true,
+    "no-duplicate-variable": [
+      true,
+      "check-parameters"
+    ],
+    "no-empty": [
+      true,
+      "allow-empty-catch"
+    ],
+    "no-empty-interface": false,
+    "no-eval": true,
+    "no-floating-promises": true,
+    "no-implicit-dependencies": true,
+    "no-internal-module": true,
+    "no-invalid-template-strings": true,
+    "no-invalid-this": true,
+    "no-misused-new": true,
+    "no-parameter-reassignment": true,
+    "no-reference": true,
+    "no-require-imports": true,
+    "no-return-await": true,
+    "no-string-literal": true,
+    "no-submodule-imports": false,
+    "no-this-assignment": [
+      true,
+      "allow-destructuring"
+    ],
+    "no-unused-variable": true,
+    "no-use-before-declare": true,
+    "no-var-keyword": true,
+    "no-var-requires": true,
+    "object-literal-shorthand": false,
+    "object-literal-sort-keys": false,
+    "one-variable-per-declaration": true,
+    "only-arrow-functions": [
+      true,
+      "allow-declarations",
+      "allow-named-functions"
+    ],
+    "ordered-imports": [
+      true,
+      {
+        "import-sources-order": "any",
+        "named-imports-order": "any",
+        "grouped-imports": true
+      }
+    ],
+    "prefer-const": true,
+    "prefer-method-signature": true,
+    "prefer-object-spread": true,
+    "prefer-readonly": true,
+    "prefer-template": true,
+    "triple-equals": [
+      true,
+      "allow-null-check",
+      "allow-undefined-check"
+    ],
+    "typedef": [
+      true,
+      "call-signature",
+      "parameter",
+      "member-variable-declaration"
+    ],
+    "unified-signatures": true,
+    "variable-name": [
+      true,
+      "ban-keywords",
+      "check-format"
+    ]
+  }
+}
