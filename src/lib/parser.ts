@@ -8,21 +8,15 @@ export enum Mode {
     SINGLE = 'single',
     MULTIPLE = 'multiple'
 }
-export interface PrepareFn {
-    (): void
-}
-export interface BuilderFn {
-    (args: Builder): Builder
-}
-export interface HandlerFn {
-    (args: Arguments): Promise<void>
-}
+export type PrepareFn = () => void
+export type BuilderFn = (args: Builder) => Builder
+export type HandlerFn = (args: Arguments) => Promise<void>
 export interface Builder extends yargs.Argv {}
 export interface Arguments extends yargs.Arguments {}
 export interface CommandObject {
     prepare?: PrepareFn
-    builder: BuilderFn
-    handler: HandlerFn
+    builder?: BuilderFn
+    handler?: HandlerFn
 }
 export interface OptionObject extends yargs.Options {
     key: string
@@ -55,7 +49,7 @@ export class Parser {
      *
      * @returns {CommandLine}
      */
-    constructor() {
+    public constructor() {
         this.name = Container.get('name')
         this.version = Container.get('version')
         this.log = Container.get(LogService)
@@ -82,8 +76,6 @@ export class Parser {
      * @returns{void}
      */
     private fail(message: string, error: Error): void {
-        console.log('==>', 'CommandLine::fail')
-
         if (message) {
             throw new Error(message)
         }
@@ -101,15 +93,12 @@ export class Parser {
      * @param {CommandObject} command -
      * @returns {void}
      */
-    public addCommand(Command: any): Builder {
-        const command: CommandObject = Container.get(Command.name)
+    public addCommand({ name, command, description }: any): Builder {
+        const instance: CommandObject = Container.get(name)
+        const builder = instance.builder.bind(instance)
+        const handler = instance.handler.bind(instance)
 
-        const name = Command.command
-        const description = Command.description
-        const builder = command.builder.bind(command)
-        const handler = command.handler.bind(command)
-
-        return this.yargs.command(name, description, builder, handler)
+        return this.yargs.command(command, description, builder, handler)
     }
 
     /**
@@ -128,7 +117,7 @@ export class Parser {
      * @returns {Promise<Arguments>}
      */
     public async parse(): Promise<Arguments> {
-        this.args =  this.yargs
+        this.args = this.yargs
             .demandCommand(this.mode === Mode.SINGLE ? 0 : 1)
             .option('h', {
                 alias: 'help',

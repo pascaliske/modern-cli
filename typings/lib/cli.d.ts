@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 import { CommandObject, OptionObject } from './parser';
+import { Command } from './command';
 export declare class Cli {
     private name;
     private version;
@@ -13,7 +14,7 @@ export declare class Cli {
      *
      * @param {string} name - The name of the cli
      * @param {string} version - The cli version.
-     * @param {boolean} storage - Need the cli a global storage.
+     * @param {boolean} storage - Decides if the cli gets a global storage.
      * @returns {Cli}
      */
     constructor(name?: string, version?: string, storage?: boolean);
@@ -24,14 +25,14 @@ export declare class Cli {
      * @param {string} message - The message to exit with.
      * @returns {Promise}
      */
-    protected exit(status?: number, message?: any): Promise<void>;
+    protected exit(status?: number, message?: string): Promise<void>;
     /**
      * Register cli commands to the cli instance.
      *
      * @param {Array<CommandObject>} commands - The commands to be added.
      * @returns {Cli}
      */
-    addCommands(commands: Array<CommandObject>): Cli;
+    addCommands(commands: Array<typeof Command>): Cli;
     /**
      * Register a single cli commands to the cli instance as default.
      *

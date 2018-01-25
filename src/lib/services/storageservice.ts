@@ -1,9 +1,9 @@
 import * as Configstore from 'configstore'
 import { Service, Inject } from '../container'
 
-export interface StorageOptions extends Configstore.ConfigstoreOptions { }
+export interface StorageOptions extends Configstore.ConfigstoreOptions {}
 
-@Service()
+@Service('StorageService')
 export class StorageService {
     /* --- constants --- */
 
@@ -24,7 +24,7 @@ export class StorageService {
      * @param {string} version -
      * @returns {Storage}
      */
-    constructor(@Inject('name') private name: string, @Inject('version') private version: string) { }
+    public constructor(@Inject('name') private name: string, @Inject('version') private version: string) {}
 
     /* --- protected --- */
 

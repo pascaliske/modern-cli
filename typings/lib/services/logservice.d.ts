@@ -22,7 +22,7 @@ export declare class LogService {
      * @param {string} message - The message to format.
      * @returns {string}
      */
-    private formatMessage(message);
+    private format(message);
     /**
      * Logs the given message with a verbosity of given level.
      *
@@ -31,55 +31,55 @@ export declare class LogService {
      * @param {Array<any>} params - Optional meta data to log.
      * @returns {void}
      */
-    log(level: LogLevels, message: string, ...params: any[]): void;
+    log(level: LogLevels, message: string, ...additional: Array<any>): void;
     /**
      * Logs the given message with a verbosity of "LogLevels.ERROR".
      *
      * @param {string} message - The message to log.
-     * @param {Array<any>} params - Optional meta data to log.
+     * @param {Array<any>} additional - Optional meta data to log.
      * @returns {void}
      */
-    error(message: string, ...params: any[]): void;
+    error(message: string, ...additional: Array<any>): void;
     /**
      * Logs the given message with a verbosity of "LogLevels.WARN".
      *
      * @param {string} message - The message to log.
-     * @param {Array<any>} params - Optional meta data to log.
+     * @param {Array<any>} additional - Optional meta data to log.
      * @returns {void}
      */
-    warn(message: string, ...params: any[]): void;
+    warn(message: string, ...additional: Array<any>): void;
     /**
      * Logs the given message with a verbosity of "LogLevels.INFO".
      *
      * @param {string} message - The message to log.
-     * @param {Array<any>} params - Optional meta data to log.
+     * @param {Array<any>} additional - Optional meta data to log.
      * @returns {void}
      */
-    info(message: string, ...params: any[]): void;
+    info(message: string, ...additional: Array<any>): void;
     /**
      * Logs the given message with a verbosity of "LogLevels.VERBOSE".
      *
      * @param {string} message - The message to log.
-     * @param {Array<any>} params - Optional meta data to log.
+     * @param {Array<any>} additional - Optional meta data to log.
      * @returns {void}
      */
-    verbose(message: string, ...params: any[]): void;
+    verbose(message: string, ...additional: Array<any>): void;
     /**
      * Logs the given message with a verbosity of "LogLevels.DEBUG".
      *
      * @param {string} message - The message to log.
-     * @param {Array<any>} params - Optional meta data to log.
+     * @param {Array<any>} additional - Optional meta data to log.
      * @returns {void}
      */
-    debug(message: string, ...params: any[]): void;
+    debug(message: string, ...additional: Array<any>): void;
     /**
      * Logs the given message with a verbosity of "LogLevels.SILLY".
      *
      * @param {string} message - The message to log.
-     * @param {Array<any>} params - Optional meta data to log.
+     * @param {Array<any>} additional - Optional meta data to log.
      * @returns {void}
      */
-    silly(message: string, ...params: any[]): void;
+    silly(message: string, ...additional: Array<any>): void;
     /**
      * Creates and returns a new spinner instance.
      *
@@ -87,7 +87,7 @@ export declare class LogService {
      * @param {object} options -
      * @returns {Spinner}
      */
-    spinner(text?: string, options?: object): any;
+    spinner(text?: string, options?: any): any;
     /**
      * Returns all logging levels in an array.
      *

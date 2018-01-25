@@ -29,14 +29,14 @@ export const findVersion = (override: string = null): string => {
  *
  * @returns {string}
  */
-export const findRoot =(): string => {
+export const findRoot = (): string => {
     const findHighestModule = (): NodeModule => {
         const stack = [module]
         let parent = module.parent
         let current
 
         for (; parent; parent = parent.parent) {
-            stack.push (parent)
+            stack.push(parent)
         }
 
         while ((current = stack.pop()) != null) {
@@ -56,7 +56,7 @@ export const findRoot =(): string => {
  * @param {string} file - The yaml file to read and parse.
  * @returns {Promise<object>} - The parsed yaml file as object.
  */
-export const readYaml = async(file: string): Promise<object> => {
+export const readYaml = async (file: string): Promise<object> => {
     return safeLoad(await readFile(file))
 }
 

@@ -7,9 +7,9 @@ export interface PromptQuestion extends inquirer.Question {
     name: string
 }
 
-export interface PromptAnswers extends inquirer.Answers { }
+export interface PromptAnswers extends inquirer.Answers {}
 
-@Service()
+@Service('PromptService')
 export class PromptService {
     /* --- constants --- */
 

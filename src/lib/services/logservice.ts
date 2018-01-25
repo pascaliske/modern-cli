@@ -14,7 +14,7 @@ export enum LogLevels {
     SILLY = 'silly'
 }
 
-@Service()
+@Service('LogService')
 export class LogService {
     /* --- constants --- */
 
@@ -31,9 +31,7 @@ export class LogService {
      */
     public constructor() {
         this.logger = new winston.Logger({
-            transports: [
-                new winston.transports.Console()
-            ]
+            transports: [new winston.transports.Console()]
         })
     }
 
@@ -45,13 +43,16 @@ export class LogService {
      * @param {string} message - The message to format.
      * @returns {string}
      */
-    private formatMessage(message: string): string {
+    private format(message: string): string {
         return message
             .replace(/(\*\*[a-zA-z-_]+?\*\*)/g, match => {
-                return chalk.bold(match.replace('*', ''))
+                return chalk.bold(match.replace(/[*]/g, ''))
             })
             .replace(/(\*[a-zA-z-_]+?\*)/g, match => {
-                return chalk.bold(match.replace('*', ''))
+                return chalk.italic(match.replace(/[*]/g, ''))
+            })
+            .replace(/(<<[a-zA-z-_]+?>>)/g, match => {
+                return chalk.red(match.replace(/[<>]/g, ''))
             })
             .replace(/(<[a-zA-z-_]+?>)/g, match => {
                 return chalk.cyan(match.replace(/[<>]/g, ''))
@@ -70,74 +71,74 @@ export class LogService {
      * @param {Array<any>} params - Optional meta data to log.
      * @returns {void}
      */
-    public log(level: LogLevels, message: string, ...params): void {
-        this.logger.log(level, this.formatMessage(message), ...params)
+    public log(level: LogLevels, message: string, ...additional: Array<any>): void {
+        this.logger.log(level, this.format(message), ...additional.map(this.format))
     }
 
     /**
      * Logs the given message with a verbosity of "LogLevels.ERROR".
      *
      * @param {string} message - The message to log.
-     * @param {Array<any>} params - Optional meta data to log.
+     * @param {Array<any>} additional - Optional meta data to log.
      * @returns {void}
      */
-    public error(message: string, ...params): void {
-        this.log(LogLevels.ERROR, message, ...params)
+    public error(message: string, ...additional: Array<any>): void {
+        this.log(LogLevels.ERROR, message, ...additional)
     }
 
     /**
      * Logs the given message with a verbosity of "LogLevels.WARN".
      *
      * @param {string} message - The message to log.
-     * @param {Array<any>} params - Optional meta data to log.
+     * @param {Array<any>} additional - Optional meta data to log.
      * @returns {void}
      */
-    public warn(message: string, ...params): void {
-        this.log(LogLevels.WARN, message, ...params)
+    public warn(message: string, ...additional: Array<any>): void {
+        this.log(LogLevels.WARN, message, ...additional)
     }
 
     /**
      * Logs the given message with a verbosity of "LogLevels.INFO".
      *
      * @param {string} message - The message to log.
-     * @param {Array<any>} params - Optional meta data to log.
+     * @param {Array<any>} additional - Optional meta data to log.
      * @returns {void}
      */
-    public info(message: string, ...params): void {
-        this.log(LogLevels.INFO, message, ...params)
+    public info(message: string, ...additional: Array<any>): void {
+        this.log(LogLevels.INFO, message, ...additional)
     }
 
     /**
      * Logs the given message with a verbosity of "LogLevels.VERBOSE".
      *
      * @param {string} message - The message to log.
-     * @param {Array<any>} params - Optional meta data to log.
+     * @param {Array<any>} additional - Optional meta data to log.
      * @returns {void}
      */
-    public verbose(message: string, ...params): void {
-        this.log(LogLevels.VERBOSE, message, ...params)
+    public verbose(message: string, ...additional: Array<any>): void {
+        this.log(LogLevels.VERBOSE, message, ...additional)
     }
 
     /**
      * Logs the given message with a verbosity of "LogLevels.DEBUG".
      *
      * @param {string} message - The message to log.
-     * @param {Array<any>} params - Optional meta data to log.
+     * @param {Array<any>} additional - Optional meta data to log.
      * @returns {void}
      */
-    public debug(message: string, ...params): void {
-        this.log(LogLevels.DEBUG, message, ...params)
+    public debug(message: string, ...additional: Array<any>): void {
+        this.log(LogLevels.DEBUG, message, ...additional)
     }
 
     /**
      * Logs the given message with a verbosity of "LogLevels.SILLY".
      *
      * @param {string} message - The message to log.
-     * @param {Array<any>} params - Optional meta data to log.
+     * @param {Array<any>} additional - Optional meta data to log.
      * @returns {void}
      */
-    public silly(message: string, ...params): void {
-        this.log(LogLevels.SILLY, message, ...params)
+    public silly(message: string, ...additional: Array<any>): void {
+        this.log(LogLevels.SILLY, message, ...additional)
     }
 
     /**
@@ -147,11 +148,11 @@ export class LogService {
      * @param {object} options -
      * @returns {Spinner}
      */
-    public spinner(text: string = 'waiting...', options: object = {}): any {
+    public spinner(text: string = 'waiting...', options: any = {}): any {
         const spinner = new Spinner({
             text: text,
-            spinner: options['visual'],
-            color: options['color'],
+            spinner: options.visual,
+            color: options.color,
             interval: 80
         })
 
@@ -164,13 +165,6 @@ export class LogService {
      * @returns {Array<string>}
      */
     public getLevels(): Array<string> {
-        return [
-            LogLevels.ERROR,
-            LogLevels.WARN,
-            LogLevels.INFO,
-            LogLevels.VERBOSE,
-            LogLevels.DEBUG,
-            LogLevels.SILLY
-        ]
+        return [LogLevels.ERROR, LogLevels.WARN, LogLevels.INFO, LogLevels.VERBOSE, LogLevels.DEBUG, LogLevels.SILLY]
     }
 }

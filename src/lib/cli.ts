@@ -8,7 +8,18 @@ import { Container } from './container'
 import { LogService } from './services/logservice'
 import { NotificationService } from './services/notificationservice'
 import { StorageService } from './services/storageservice'
-import { Parser, CommandObject, OptionObject, Builder, Arguments, PrepareFn, BuilderFn, HandlerFn, Mode } from './parser'
+import {
+    Parser,
+    CommandObject,
+    OptionObject,
+    Builder,
+    Arguments,
+    PrepareFn,
+    BuilderFn,
+    HandlerFn,
+    Mode
+} from './parser'
+import { Command } from './command'
 
 export class Cli {
     /* --- constants --- */
@@ -36,13 +47,13 @@ export class Cli {
      *
      * @param {string} name - The name of the cli
      * @param {string} version - The cli version.
-     * @param {boolean} storage - Need the cli a global storage.
+     * @param {boolean} storage - Decides if the cli gets a global storage.
      * @returns {Cli}
      */
-    constructor(name: string = null, version: string = null, storage: boolean = false) {
+    public constructor(name: string = null, version: string = null, storage: boolean = false) {
         // prepare di container
-        Container.set('name', findName())
-        Container.set('version', findVersion())
+        Container.set('name', findName(name))
+        Container.set('version', findVersion(version))
         Container.set('root', findRoot())
 
         this.name = Container.get('name')
@@ -58,8 +69,8 @@ export class Cli {
         }
 
         // handle uncaught errors
-        // process.on('uncaughtException', error => this.exit(1, error))
-        // process.on('unhandledRejection', error => this.exit(1, error))
+        process.on('uncaughtException', error => this.exit(1, error.message))
+        process.on('unhandledRejection', error => this.exit(1, error))
     }
 
     /* --- private --- */
@@ -73,7 +84,7 @@ export class Cli {
      * @param {string} message - The message to exit with.
      * @returns {Promise}
      */
-    protected async exit(status: number = 0, message: any = null): Promise<void> {
+    protected async exit(status: number = 0, message: string = null): Promise<void> {
         // exits with an error
         if (status > 0) {
             await this.notifications.notify('😔 An error occured!')
@@ -101,7 +112,7 @@ export class Cli {
      * @param {Array<CommandObject>} commands - The commands to be added.
      * @returns {Cli}
      */
-    public addCommands(commands: Array<CommandObject>): Cli {
+    public addCommands(commands: Array<typeof Command>): Cli {
         // set mode to multiple
         this.parser.setMode(Mode.MULTIPLE)
 
@@ -134,11 +145,6 @@ export class Cli {
         // refuse command if theres already one set
         if (this.parser.isLocked()) {
             return this
-        }
-
-        // prepare command
-        if (typeof command.prepare === 'function') {
-            command.prepare()
         }
 
         // add command and set to single mode
@@ -174,8 +180,7 @@ export class Cli {
             this.log.info(`v${this.version}`)
             await this.parser.parse()
         } catch (error) {
-            // await this.exit(1, error.message)
-            console.error('cli::error', error)
+            this.exit(1, error.message)
         }
     }
 }

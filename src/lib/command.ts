@@ -25,17 +25,17 @@ export class Command implements CommandObject {
     @Inject('root')
     public root: string
 
-    // @Inject()
+    @Inject('LogService')
     public log: LogService
 
-    // @Inject(HttpService)
-    // public http: HttpService
+    @Inject('HttpService')
+    public http: HttpService
 
-    // @Inject(PromptService)
-    // public prompt: PromptService
+    @Inject('PromptService')
+    public prompt: PromptService
 
-    // @Inject(StorageService)
-    // public storage: StorageService
+    @Inject('StorageService')
+    public storage: StorageService
 
     /* --- constructor --- */
 
@@ -61,26 +61,12 @@ export class Command implements CommandObject {
 
     /* --- public --- */
 
-    public prepare(): void {
-    }
-
     public builder(args: Builder): Builder {
-        console.log('default builder', args)
+        // silence is golden
         return args
     }
 
-    public async handler(args: Arguments): Promise<void>  {
-        console.log('default handler', args)
+    public async handler(args: Arguments): Promise<void> {
+        // silence is golden
     }
-
-    // /**
-    //  * Creates a new command from an command object.
-    //  *
-    //  * @static
-    //  * @param {CommandObject} object - Command object describing the command.
-    //  * @returns {Command}
-    //  */
-    // public static fromObject({ name, description, prepare, builder, handler }: CommandObject): Command {
-    //     return new Command(name, description, prepare, builder, handler)
-    // }
 }

@@ -3,23 +3,17 @@ export declare enum Mode {
     SINGLE = "single",
     MULTIPLE = "multiple",
 }
-export interface PrepareFn {
-    (): void;
-}
-export interface BuilderFn {
-    (args: Builder): Builder;
-}
-export interface HandlerFn {
-    (args: Arguments): Promise<void>;
-}
+export declare type PrepareFn = () => void;
+export declare type BuilderFn = (args: Builder) => Builder;
+export declare type HandlerFn = (args: Arguments) => Promise<void>;
 export interface Builder extends yargs.Argv {
 }
 export interface Arguments extends yargs.Arguments {
 }
 export interface CommandObject {
     prepare?: PrepareFn;
-    builder: BuilderFn;
-    handler: HandlerFn;
+    builder?: BuilderFn;
+    handler?: HandlerFn;
 }
 export interface OptionObject extends yargs.Options {
     key: string;
@@ -52,7 +46,7 @@ export declare class Parser {
      * @param {CommandObject} command -
      * @returns {void}
      */
-    addCommand(Command: any): Builder;
+    addCommand({name, command, description}: any): Builder;
     /**
      * Adds an option to the cli.
      *

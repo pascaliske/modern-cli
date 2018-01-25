@@ -1,6 +1,6 @@
 import { Service } from '../container'
 
-@Service()
+@Service('HttpService')
 export class HttpService {
     /* --- constants --- */
 
@@ -8,9 +8,7 @@ export class HttpService {
 
     /* --- constructor --- */
 
-    constructor() {
-
-    }
+    public constructor() {}
 
     /* --- protected --- */
 

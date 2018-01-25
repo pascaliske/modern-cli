@@ -5,7 +5,7 @@ export interface Notification extends notifier.Notification {
     message: string
 }
 
-@Service()
+@Service('NotificationService')
 export class NotificationService {
     /* --- constants --- */
 
@@ -38,7 +38,7 @@ export class NotificationService {
                 sound: true
             }
 
-            notifier.notify(Object.assign(defaults, options), (error, result) => {
+            notifier.notify({ ...defaults, ...options }, (error, result) => {
                 if (error) {
                     reject(error)
                 }
