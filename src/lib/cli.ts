@@ -85,19 +85,19 @@ export class Cli {
      * @returns {Promise}
      */
     protected async exit(status: number = 0, message: string = null): Promise<void> {
-        // exits with an error
-        if (status > 0) {
-            await this.notifications.notify('😔 An error occured!')
-            this.log.error(message)
-
-            // exit with given status code
-            process.exit(status)
-            return
+        try {
+            if (status > 0) {
+                // exits with an error
+                this.log.error(message)
+                await this.notifications.notify('😔 An error occured!')
+            } else {
+                // exits with success message
+                this.log.info(message)
+                await this.notifications.notify(message)
+            }
+        } catch (error) {
+            console.error(error)
         }
-
-        // exits with success message
-        await this.notifications.notify(message)
-        this.log.info(message)
 
         // exit with given status code
         process.exit(status)
