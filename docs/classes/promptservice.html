@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>CommandLine | modern-cli</title>
+	<title>PromptService | modern-cli</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,10 +56,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="commandline.html">CommandLine</a>
+					<a href="promptservice.html">PromptService</a>
 				</li>
 			</ul>
-			<h1>Class CommandLine</h1>
+			<h1>Class PromptService</h1>
 		</div>
 	</div>
 </header>
@@ -70,7 +70,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">CommandLine</span>
+						<span class="target">PromptService</span>
 					</li>
 				</ul>
 			</section>
@@ -81,15 +81,15 @@
 						<section class="tsd-index-section tsd-is-external">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-external"><a href="commandline.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-external"><a href="promptservice.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-external">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="commandline.html#addcommand" class="tsd-kind-icon">add<wbr>Command</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="commandline.html#addoption" class="tsd-kind-icon">add<wbr>Option</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="commandline.html#parse" class="tsd-kind-icon">parse</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="promptservice.html#ask" class="tsd-kind-icon">ask</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="promptservice.html#reset" class="tsd-kind-icon">reset</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="promptservice.html#start" class="tsd-kind-icon">start</a></li>
 							</ul>
 						</section>
 					</div>
@@ -101,21 +101,21 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Command<wbr>Line<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="commandline.html" class="tsd-signature-type">CommandLine</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Prompt<wbr>Service<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="promptservice.html" class="tsd-signature-type">PromptService</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in lib/commandline.ts:22</li>
+									<li>Defined in <a href="https://github.com/pascaliske/modern-cli/blob/106553e/src/lib/services/promptservice.ts#L20">lib/services/promptservice.ts:20</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Initializes the command line parser.</p>
+									<p>Initializes the prompt service.</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <a href="commandline.html" class="tsd-signature-type">CommandLine</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="promptservice.html" class="tsd-signature-type">PromptService</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -123,86 +123,77 @@
 			<section class="tsd-panel-group tsd-member-group tsd-is-external">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
-					<a name="addcommand" class="tsd-anchor"></a>
-					<h3>add<wbr>Command</h3>
+					<a name="ask" class="tsd-anchor"></a>
+					<h3>ask</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">add<wbr>Command<span class="tsd-signature-symbol">(</span>command<span class="tsd-signature-symbol">: </span><a href="../interfaces/commandobject.html" class="tsd-signature-type">CommandObject</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">ask<span class="tsd-signature-symbol">(</span>questions<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/promptquestion.html" class="tsd-signature-type">PromptQuestion</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="promptservice.html" class="tsd-signature-type">PromptService</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in lib/commandline.ts:50</li>
+									<li>Defined in <a href="https://github.com/pascaliske/modern-cli/blob/106553e/src/lib/services/promptservice.ts#L45">lib/services/promptservice.ts:45</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Adds an command to the cli.</p>
+									<p>Adds the given questions to the prompt instance.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>command: <a href="../interfaces/commandobject.html" class="tsd-signature-type">CommandObject</a></h5>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> questions: <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/promptquestion.html" class="tsd-signature-type">PromptQuestion</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>-</p>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="promptservice.html" class="tsd-signature-type">PromptService</a></h4>
 						</li>
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
-					<a name="addoption" class="tsd-anchor"></a>
-					<h3>add<wbr>Option</h3>
+					<a name="reset" class="tsd-anchor"></a>
+					<h3>reset</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">add<wbr>Option<span class="tsd-signature-symbol">(</span>option<span class="tsd-signature-symbol">: </span><a href="../interfaces/optionobject.html" class="tsd-signature-type">OptionObject</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">reset<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="promptservice.html" class="tsd-signature-type">PromptService</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in lib/commandline.ts:60</li>
+									<li>Defined in <a href="https://github.com/pascaliske/modern-cli/blob/106553e/src/lib/services/promptservice.ts#L56">lib/services/promptservice.ts:56</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Adds an option to the cli.</p>
+									<p>Resets the questions on the service.</p>
 								</div>
 							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>option: <a href="../interfaces/optionobject.html" class="tsd-signature-type">OptionObject</a></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>-</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="promptservice.html" class="tsd-signature-type">PromptService</a></h4>
 						</li>
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
-					<a name="parse" class="tsd-anchor"></a>
-					<h3>parse</h3>
+					<a name="start" class="tsd-anchor"></a>
+					<h3>start</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">parse<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Arguments</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">start<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/promptanswers.html" class="tsd-signature-type">PromptAnswers</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in lib/commandline.ts:69</li>
+									<li>Defined in <a href="https://github.com/pascaliske/modern-cli/blob/106553e/src/lib/services/promptservice.ts#L67">lib/services/promptservice.ts:67</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Parses the command line and returns it.</p>
+									<p>Starts the prompt session.</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Arguments</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/promptanswers.html" class="tsd-signature-type">PromptAnswers</a><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -218,47 +209,101 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-enum tsd-is-external">
+						<a href="../enums/loglevels.html" class="tsd-kind-icon">Log<wbr>Levels</a>
+					</li>
+					<li class=" tsd-kind-enum tsd-is-external">
+						<a href="../enums/mode.html" class="tsd-kind-icon">Mode</a>
+					</li>
 					<li class=" tsd-kind-class tsd-is-external">
 						<a href="cli.html" class="tsd-kind-icon">Cli</a>
 					</li>
 					<li class=" tsd-kind-class tsd-is-external">
 						<a href="command.html" class="tsd-kind-icon">Command</a>
 					</li>
+					<li class=" tsd-kind-class tsd-is-external">
+						<a href="httpservice.html" class="tsd-kind-icon">Http<wbr>Service</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-external">
+						<a href="logservice.html" class="tsd-kind-icon">Log<wbr>Service</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-external">
+						<a href="notificationservice.html" class="tsd-kind-icon">Notification<wbr>Service</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-external">
+						<a href="parser.html" class="tsd-kind-icon">Parser</a>
+					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class tsd-is-external">
-						<a href="commandline.html" class="tsd-kind-icon">Command<wbr>Line</a>
+						<a href="promptservice.html" class="tsd-kind-icon">Prompt<wbr>Service</a>
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-external">
-								<a href="commandline.html#constructor" class="tsd-kind-icon">constructor</a>
+								<a href="promptservice.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
-								<a href="commandline.html#addcommand" class="tsd-kind-icon">add<wbr>Command</a>
+								<a href="promptservice.html#ask" class="tsd-kind-icon">ask</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
-								<a href="commandline.html#addoption" class="tsd-kind-icon">add<wbr>Option</a>
+								<a href="promptservice.html#reset" class="tsd-kind-icon">reset</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
-								<a href="commandline.html#parse" class="tsd-kind-icon">parse</a>
+								<a href="promptservice.html#start" class="tsd-kind-icon">start</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
 					<li class=" tsd-kind-class tsd-is-external">
-						<a href="logger.html" class="tsd-kind-icon">Logger</a>
+						<a href="storageservice.html" class="tsd-kind-icon">Storage<wbr>Service</a>
 					</li>
-					<li class=" tsd-kind-class tsd-is-external">
-						<a href="prompt.html" class="tsd-kind-icon">Prompt</a>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="../interfaces/arguments.html" class="tsd-kind-icon">Arguments</a>
 					</li>
-					<li class=" tsd-kind-class tsd-is-external">
-						<a href="storage.html" class="tsd-kind-icon">Storage</a>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="../interfaces/builder.html" class="tsd-kind-icon">Builder</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-is-external">
 						<a href="../interfaces/commandobject.html" class="tsd-kind-icon">Command<wbr>Object</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="../interfaces/notification.html" class="tsd-kind-icon">Notification</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
 						<a href="../interfaces/optionobject.html" class="tsd-kind-icon">Option<wbr>Object</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="../interfaces/promptanswers.html" class="tsd-kind-icon">Prompt<wbr>Answers</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="../interfaces/promptquestion.html" class="tsd-kind-icon">Prompt<wbr>Question</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="../interfaces/storageoptions.html" class="tsd-kind-icon">Storage<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-is-external">
+						<a href="../globals.html#builderfn" class="tsd-kind-icon">Builder<wbr>Fn</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-is-external">
+						<a href="../globals.html#handlerfn" class="tsd-kind-icon">Handler<wbr>Fn</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-is-external">
+						<a href="../globals.html#preparefn" class="tsd-kind-icon">Prepare<wbr>Fn</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-external">
+						<a href="../globals.html#findname" class="tsd-kind-icon">find<wbr>Name</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-external">
+						<a href="../globals.html#findroot" class="tsd-kind-icon">find<wbr>Root</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-external">
+						<a href="../globals.html#findversion" class="tsd-kind-icon">find<wbr>Version</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-external">
+						<a href="../globals.html#readyaml" class="tsd-kind-icon">read<wbr>Yaml</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-external">
+						<a href="../globals.html#writeyaml" class="tsd-kind-icon">write<wbr>Yaml</a>
 					</li>
 				</ul>
 			</nav>

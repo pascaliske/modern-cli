@@ -65,9 +65,9 @@
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
 				<h1 id="-pascaliske-modern-cli-"><code>pascaliske/modern-cli</code></h1>
-				<p><a href=""><img src="https://img.shields.io/npm/v/modern-cli.svg?style=flat" alt="npm"></a>
-					<a href="https://raw.githubusercontent.com/pascaliske/modern-cli/master/LICENSE.md"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat" alt="GitHub license"></a>
-					<a href=""><img src="https://img.shields.io/travis/pascaliske/modern-cli.svg?style=flat" alt="Travis"></a>
+				<p><a href="https://www.npmjs.com/package/modern-cli"><img src="https://img.shields.io/npm/v/modern-cli.svg?style=flat" alt="npm"></a>
+					<a href="https://github.com/pascaliske/modern-cli/blob/master/LICENSE.md"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat" alt="GitHub license"></a>
+					<a href="https://travis-ci.org/pascaliske/modern-cli"><img src="https://img.shields.io/travis/pascaliske/modern-cli.svg?style=flat" alt="Travis"></a>
 				<a href="https://greenkeeper.io/"><img src="https://badges.greenkeeper.io/pascaliske/modern-cli.svg" alt="Greenkeeper badge"></a></p>
 				<blockquote>
 					<p>Library for class based modern cli scripts.</p>
@@ -78,7 +78,7 @@
 </code></pre>
 				<h2 id="basic-usage">Basic Usage</h2>
 				<p>Here are some basic examples for the usage. For more information see the <a href="https://pascaliske.github.io/modern-cli/docs">docs</a>.</p>
-				<h3 id="using-functions">Using functions</h3>
+				<h3 id="using-a-simple-commandobject-https-pascaliske-github-io-modern-cli-interfaces-commandobject-html-">Using a simple <a href="https://pascaliske.github.io/modern-cli/interfaces/commandobject.html">CommandObject</a></h3>
 				<h6 id="-examples-basic-js-"><code>./examples/basic.js</code>:</h6>
 				<pre><code class="lang-js"><span class="hljs-keyword">import</span> { Cli } <span class="hljs-keyword">from</span> <span class="hljs-string">'modern-cli'</span>;
 
@@ -96,7 +96,7 @@
 				<pre><code class="lang-bash">$ babel-node ./examples/basic.js <span class="hljs-built_in">command</span>
 $ ./examples/basic.js --<span class="hljs-built_in">help</span>
 </code></pre>
-				<h3 id="using-a-dedicated-command-class">Using a dedicated command class</h3>
+				<h3 id="using-a-dedicated-command-class-https-pascaliske-github-io-modern-cli-classes-command-html-">Using a dedicated <a href="https://pascaliske.github.io/modern-cli/classes/command.html">command class</a></h3>
 				<h6 id="-examples-basic2-js-"><code>./examples/basic2.js</code>:</h6>
 				<pre><code class="lang-js"><span class="hljs-keyword">import</span> { Cli } <span class="hljs-keyword">from</span> <span class="hljs-string">'modern-cli'</span>;
 <span class="hljs-keyword">import</span> MyCommand <span class="hljs-keyword">from</span> <span class="hljs-string">'./mycommand.js'</span>;
@@ -124,9 +124,10 @@ $ ./examples/basic.js --<span class="hljs-built_in">help</span>
 }
 </code></pre>
 				<p>Again, you can use the script in one of the following ways:</p>
-				<pre><code><span class="hljs-meta">$</span><span class="bash"> ./examples/basic2.js mycommand</span>
-<span class="hljs-meta">$</span><span class="bash"> ./examples/basic2.js --<span class="hljs-built_in">help</span></span>
-</code></pre><h2 id="license">License</h2>
+				<pre><code class="lang-bash">$ ./examples/basic2.js mycommand
+$ ./examples/basic2.js --<span class="hljs-built_in">help</span>
+</code></pre>
+				<h2 id="license">License</h2>
 				<p>MIT © <a href="https://pascal-iske.de">Pascal Iske</a></p>
 			</div>
 		</div>
@@ -140,6 +141,12 @@ $ ./examples/basic.js --<span class="hljs-built_in">help</span>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-enum tsd-is-external">
+						<a href="enums/loglevels.html" class="tsd-kind-icon">Log<wbr>Levels</a>
+					</li>
+					<li class=" tsd-kind-enum tsd-is-external">
+						<a href="enums/mode.html" class="tsd-kind-icon">Mode</a>
+					</li>
 					<li class=" tsd-kind-class tsd-is-external">
 						<a href="classes/cli.html" class="tsd-kind-icon">Cli</a>
 					</li>
@@ -147,22 +154,70 @@ $ ./examples/basic.js --<span class="hljs-built_in">help</span>
 						<a href="classes/command.html" class="tsd-kind-icon">Command</a>
 					</li>
 					<li class=" tsd-kind-class tsd-is-external">
-						<a href="classes/commandline.html" class="tsd-kind-icon">Command<wbr>Line</a>
+						<a href="classes/httpservice.html" class="tsd-kind-icon">Http<wbr>Service</a>
 					</li>
 					<li class=" tsd-kind-class tsd-is-external">
-						<a href="classes/logger.html" class="tsd-kind-icon">Logger</a>
+						<a href="classes/logservice.html" class="tsd-kind-icon">Log<wbr>Service</a>
 					</li>
 					<li class=" tsd-kind-class tsd-is-external">
-						<a href="classes/prompt.html" class="tsd-kind-icon">Prompt</a>
+						<a href="classes/notificationservice.html" class="tsd-kind-icon">Notification<wbr>Service</a>
 					</li>
 					<li class=" tsd-kind-class tsd-is-external">
-						<a href="classes/storage.html" class="tsd-kind-icon">Storage</a>
+						<a href="classes/parser.html" class="tsd-kind-icon">Parser</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-external">
+						<a href="classes/promptservice.html" class="tsd-kind-icon">Prompt<wbr>Service</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-external">
+						<a href="classes/storageservice.html" class="tsd-kind-icon">Storage<wbr>Service</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/arguments.html" class="tsd-kind-icon">Arguments</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/builder.html" class="tsd-kind-icon">Builder</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-is-external">
 						<a href="interfaces/commandobject.html" class="tsd-kind-icon">Command<wbr>Object</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/notification.html" class="tsd-kind-icon">Notification</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
 						<a href="interfaces/optionobject.html" class="tsd-kind-icon">Option<wbr>Object</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/promptanswers.html" class="tsd-kind-icon">Prompt<wbr>Answers</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/promptquestion.html" class="tsd-kind-icon">Prompt<wbr>Question</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/storageoptions.html" class="tsd-kind-icon">Storage<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-is-external">
+						<a href="globals.html#builderfn" class="tsd-kind-icon">Builder<wbr>Fn</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-is-external">
+						<a href="globals.html#handlerfn" class="tsd-kind-icon">Handler<wbr>Fn</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-is-external">
+						<a href="globals.html#preparefn" class="tsd-kind-icon">Prepare<wbr>Fn</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-external">
+						<a href="globals.html#findname" class="tsd-kind-icon">find<wbr>Name</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-external">
+						<a href="globals.html#findroot" class="tsd-kind-icon">find<wbr>Root</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-external">
+						<a href="globals.html#findversion" class="tsd-kind-icon">find<wbr>Version</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-external">
+						<a href="globals.html#readyaml" class="tsd-kind-icon">read<wbr>Yaml</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-external">
+						<a href="globals.html#writeyaml" class="tsd-kind-icon">write<wbr>Yaml</a>
 					</li>
 				</ul>
 			</nav>

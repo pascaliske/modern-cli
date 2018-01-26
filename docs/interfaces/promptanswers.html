@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>CommandObject | modern-cli</title>
+	<title>PromptAnswers | modern-cli</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,10 +56,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="commandobject.html">CommandObject</a>
+					<a href="promptanswers.html">PromptAnswers</a>
 				</li>
 			</ul>
-			<h1>Interface CommandObject</h1>
+			<h1>Interface PromptAnswers</h1>
 		</div>
 	</div>
 </header>
@@ -70,63 +70,18 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">CommandObject</span>
+						<span class="tsd-signature-type">Answers</span>
+						<ul class="tsd-hierarchy">
+							<li>
+								<span class="target">PromptAnswers</span>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</section>
-			<section class="tsd-panel">
-				<h3>Implemented by</h3>
-				<ul class="tsd-hierarchy">
-					<li><a href="../classes/command.html" class="tsd-signature-type">Command</a></li>
-				</ul>
-			</section>
-			<section class="tsd-panel-group tsd-index-group">
-				<h2>Index</h2>
-				<section class="tsd-panel tsd-index-panel">
-					<div class="tsd-index-content">
-						<section class="tsd-index-section tsd-is-external">
-							<h3>Properties</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="commandobject.html#builder" class="tsd-kind-icon">builder</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="commandobject.html#handler" class="tsd-kind-icon">handler</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="commandobject.html#prepare" class="tsd-kind-icon">prepare</a></li>
-							</ul>
-						</section>
-					</div>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-external">
-				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-external">
-					<a name="builder" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> builder</h3>
-					<div class="tsd-signature tsd-kind-icon">builder<span class="tsd-signature-symbol">:</span> <a href="../globals.html#builderfn" class="tsd-signature-type">BuilderFn</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/pascaliske/modern-cli/blob/106553e/src/lib/parser.ts#L18">lib/parser.ts:18</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-external">
-					<a name="handler" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> handler</h3>
-					<div class="tsd-signature tsd-kind-icon">handler<span class="tsd-signature-symbol">:</span> <a href="../globals.html#handlerfn" class="tsd-signature-type">HandlerFn</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/pascaliske/modern-cli/blob/106553e/src/lib/parser.ts#L19">lib/parser.ts:19</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-external">
-					<a name="prepare" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> prepare</h3>
-					<div class="tsd-signature tsd-kind-icon">prepare<span class="tsd-signature-symbol">:</span> <a href="../globals.html#preparefn" class="tsd-signature-type">PrepareFn</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/pascaliske/modern-cli/blob/106553e/src/lib/parser.ts#L17">lib/parser.ts:17</a></li>
-						</ul>
-					</aside>
-				</section>
+			<section class="tsd-panel tsd-kind-interface tsd-is-external">
+				<h3 class="tsd-before-signature">Indexable</h3>
+				<div class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">any</span></div>
 			</section>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -175,33 +130,22 @@
 					<li class=" tsd-kind-interface tsd-is-external">
 						<a href="builder.html" class="tsd-kind-icon">Builder</a>
 					</li>
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-interface tsd-is-external">
+					<li class=" tsd-kind-interface tsd-is-external">
 						<a href="commandobject.html" class="tsd-kind-icon">Command<wbr>Object</a>
-						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-external">
-								<a href="commandobject.html#builder" class="tsd-kind-icon">builder</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-external">
-								<a href="commandobject.html#handler" class="tsd-kind-icon">handler</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-external">
-								<a href="commandobject.html#prepare" class="tsd-kind-icon">prepare</a>
-							</li>
-						</ul>
 					</li>
-				</ul>
-				<ul class="after-current">
 					<li class=" tsd-kind-interface tsd-is-external">
 						<a href="notification.html" class="tsd-kind-icon">Notification</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-is-external">
 						<a href="optionobject.html" class="tsd-kind-icon">Option<wbr>Object</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-is-external">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-interface tsd-is-external">
 						<a href="promptanswers.html" class="tsd-kind-icon">Prompt<wbr>Answers</a>
 					</li>
+				</ul>
+				<ul class="after-current">
 					<li class=" tsd-kind-interface tsd-is-external">
 						<a href="promptquestion.html" class="tsd-kind-icon">Prompt<wbr>Question</a>
 					</li>
