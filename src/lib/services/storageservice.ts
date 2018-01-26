@@ -9,37 +9,30 @@ export class StorageService {
 
     /* --- properties --- */
 
+    @Inject('name') private name: string
+
+    @Inject('version') private version: string
+
     private defaults: object = {}
 
     private options: StorageOptions = {}
 
-    private storage: Configstore
+    private storage: Configstore = null
 
     /* --- constructor --- */
-
-    /**
-     * Initializes the cli storage.
-     *
-     * @param {string} name -
-     * @param {string} version -
-     * @returns {Storage}
-     */
-    public constructor(@Inject('name') private name: string, @Inject('version') private version: string) {}
 
     /* --- protected --- */
 
     /* --- public --- */
 
     /**
-     * Creates a storage instance.
+     * Creates a new storage object.
      *
      * @returns {void}
      */
     public create(): void {
         this.storage = new Configstore(this.name, this.defaults, this.options)
-
-        // initially store the version number
-        this.set('version', this.version)
+        this.storage.set('version', this.version)
     }
 
     /**
@@ -48,6 +41,10 @@ export class StorageService {
      * @returns {object}
      */
     public all(): object {
+        if (this.storage === null) {
+            throw new Error('No storage created.')
+        }
+
         return this.storage.all
     }
 
@@ -57,6 +54,10 @@ export class StorageService {
      * @returns {number}
      */
     public size(): number {
+        if (this.storage === null) {
+            throw new Error('No storage created.')
+        }
+
         return this.storage.size
     }
 
@@ -66,6 +67,10 @@ export class StorageService {
      * @returns {number}
      */
     public path(): string {
+        if (this.storage === null) {
+            throw new Error('No storage created.')
+        }
+
         return this.storage.path
     }
 
@@ -76,6 +81,10 @@ export class StorageService {
      * @returns {any}
      */
     public get(key: string): any {
+        if (this.storage === null) {
+            throw new Error('No storage created.')
+        }
+
         return this.storage.get(key)
     }
 
@@ -87,6 +96,10 @@ export class StorageService {
      * @returns {void}
      */
     public set(key: string, value: any): void {
+        if (this.storage === null) {
+            throw new Error('No storage created.')
+        }
+
         this.storage.set(key, value)
     }
 
@@ -97,6 +110,10 @@ export class StorageService {
      * @returns {boolean}
      */
     public has(key: string): boolean {
+        if (this.storage === null) {
+            throw new Error('No storage created.')
+        }
+
         return this.storage.has(key)
     }
 
@@ -107,6 +124,10 @@ export class StorageService {
      * @returns {void}
      */
     public delete(key: string): void {
+        if (this.storage === null) {
+            throw new Error('No storage created.')
+        }
+
         this.storage.delete(key)
     }
 
@@ -116,6 +137,10 @@ export class StorageService {
      * @returns {void}
      */
     public clear(): void {
+        if (this.storage === null) {
+            throw new Error('No storage created.')
+        }
+
         this.storage.clear()
     }
 }

@@ -8,15 +8,7 @@ export declare class StorageService {
     private options;
     private storage;
     /**
-     * Initializes the cli storage.
-     *
-     * @param {string} name -
-     * @param {string} version -
-     * @returns {Storage}
-     */
-    constructor(name: string, version: string);
-    /**
-     * Creates a storage instance.
+     * Creates a new storage object.
      *
      * @returns {void}
      */
