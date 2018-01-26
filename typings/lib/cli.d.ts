@@ -7,8 +7,8 @@ export declare class Cli {
     private root;
     private log;
     private notifications;
-    private parser;
     private storage;
+    private parser;
     /**
      * Initializes the cli instance.
      *
