@@ -22,20 +22,16 @@ export class Command implements CommandObject {
 
     public static aliases: Array<string>
 
-    @Inject('root')
-    public root: string
+    @Inject('root') public root: string
 
-    @Inject('LogService')
-    public log: LogService
+    @Inject('LogService') public log: LogService
 
-    @Inject('HttpService')
-    public http: HttpService
+    @Inject('HttpService') public http: HttpService
 
-    @Inject('PromptService')
-    public prompt: PromptService
 
-    @Inject('StorageService')
-    public storage: StorageService
+    @Inject('PromptService') public prompt: PromptService
+
+    @Inject('StorageService') public storage: StorageService
 
     /* --- constructor --- */
 

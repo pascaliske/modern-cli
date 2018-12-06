@@ -11,11 +11,9 @@ export class NotificationService {
 
     /* --- properties --- */
 
-    @Inject('name')
-    private name: string
+    @Inject('name') private name: string
 
-    @Inject('version')
-    private version: string
+    @Inject('version') private version: string
 
     /* --- constructor --- */
 
