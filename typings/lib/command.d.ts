@@ -1,6 +1,7 @@
 import { CommandObject, Arguments, Builder } from './parser';
 import { LogService } from './services/logservice';
 import { HttpService } from './services/httpservice';
+import { ShellService } from './services/shellservice';
 import { PromptService } from './services/promptservice';
 import { StorageService } from './services/storageservice';
 export declare class Command implements CommandObject {
@@ -10,6 +11,7 @@ export declare class Command implements CommandObject {
     root: string;
     log: LogService;
     http: HttpService;
+    shell: ShellService;
     prompt: PromptService;
     storage: StorageService;
     builder(args: Builder): Builder;

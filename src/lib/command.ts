@@ -7,6 +7,7 @@ import { Container, Service, Inject } from './container'
 import { CommandObject, Arguments, Builder, PrepareFn, BuilderFn, HandlerFn } from './parser'
 import { LogService } from './services/logservice'
 import { HttpService } from './services/httpservice'
+import { ShellService } from './services/shellservice'
 import { PromptService } from './services/promptservice'
 import { StorageService } from './services/storageservice'
 
@@ -28,6 +29,7 @@ export class Command implements CommandObject {
 
     @Inject('HttpService') public http: HttpService
 
+    @Inject('ShellService') public shell: ShellService
 
     @Inject('PromptService') public prompt: PromptService
 
@@ -36,24 +38,6 @@ export class Command implements CommandObject {
     /* --- constructor --- */
 
     /* --- protected --- */
-
-    // /**
-    //  * Executes a given local command.
-    //  *
-    //  * @param {Array} params -
-    //  * @returns {Promise}
-    //  */
-    // protected async local(...params): Promise<any> {
-    //     this.log.info('\n$', params.join(' '))
-
-    //     const result = await shell(params, {
-    //         stdio: 'inherit'
-    //     })
-
-    //     this.log.info('')
-
-    //     return result
-    // }
 
     /* --- public --- */
 
